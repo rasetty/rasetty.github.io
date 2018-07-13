@@ -1,2 +1,1 @@
-# rasetty.github.io
-хостинг
+<p>Hello World</p>
