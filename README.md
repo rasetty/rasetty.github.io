@@ -1,2 +1,0 @@
-# rasetty.github.io
-хостинг
