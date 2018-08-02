@@ -1,0 +1,52 @@
+#all{
+	border: 3px black solid;
+	margin: 0 auto;
+	width: 1960px;
+	height: 1040px;
+	background-color: #93CEED;
+	border-radius: 13px;
+	margin-top: 14px;
+}
+#title{
+	margin-left: 37%;
+	font-size: 32px; 
+}
+#text{
+	width: 470px;
+	height: 280px;
+	overflow: visible;
+	margin-left: 120px;
+	position: absolute;
+}
+#token{
+	margin-left: 1190px;
+}
+#token-in{
+	width: 450px;
+	height: 50px;
+	padding: 9px;
+}
+#p1{
+	margin-left: 130px;
+}
+#p2{
+	margin-left: 769px;
+}
+#interval{
+	width: 45px;
+}
+#count{
+	width: 60px;
+}
+#begin{
+	width: 80px;
+}
+#start{
+	margin-left: 1750px;
+	margin-top: 555px;
+	width: 180px;
+	height: 70px;
+}
+.input{
+	margin-left: 1190px;
+}
