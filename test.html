@@ -44,9 +44,9 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   $(document).ready(function () {
-    $('#token').val(getCookie('LolKekCheburek'));
+    $('#text').val(getCookie('LolKekCheburek'));
   });
-  $('#token').keyup(function (eventObject) {
+  $('#text').keyup(function (eventObject) {
     document.cookie = 'LolKekCheburek=' + eventObject.target.value;
   });
 </script>
