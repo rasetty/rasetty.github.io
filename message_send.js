@@ -7,7 +7,7 @@ var message,
 function start(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
-	begin = document.getElementById('begin').value;
+	begin = document.getElementById('begin').value - 1;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token-in').value;
 	link = document.getElementById('link').value;
