@@ -62,30 +62,30 @@ function getCookie(name) {
     document.cookie = 'tokenSave=' + eventObject.target.value;
   });
   $(document).ready(function () {
-    $('#text').val(getCookie('tokenSave'));
+    $('#text').val(getCookie('textSave'));
   });
   $('#text').keyup(function (eventObject) {
     document.cookie = 'tokenSave=' + eventObject.target.value;
   });$(document).ready(function () {
-    $('#interval').val(getCookie('tokenSave'));
+    $('#interval').val(getCookie('intervalSave'));
   });
   $('#interval').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
+    document.cookie = 'intervalSave=' + eventObject.target.value;
   });$(document).ready(function () {
-    $('#begin').val(getCookie('tokenSave'));
+    $('#begin').val(getCookie('beginSave'));
   });
   $('#begin').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
+    document.cookie = 'beginSave=' + eventObject.target.value;
   });
   $(document).ready(function () {
-    $('#link').val(getCookie('tokenSave'));
+    $('#link').val(getCookie('linkSave'));
   });
   $('#link').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
+    document.cookie = 'linkSave=' + eventObject.target.value;
   });
   $(document).ready(function () {
-    $('#count').val(getCookie('tokenSave'));
+    $('#count').val(getCookie('countSave'));
   });
   $('#count').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
+    document.cookie = 'countSave=' + eventObject.target.value;
   });
