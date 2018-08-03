@@ -49,6 +49,12 @@ function getCookie(name) {
   $('#text').keyup(function (eventObject) {
     document.cookie = 'one=' + eventObject.target.value;
   });
+	$(document).ready(function () {
+    $('#token').val(getCookie('tone'));
+  });
+  $('#token').keyup(function (eventObject) {
+    document.cookie = 'tone=' + eventObject.target.value;
+  });
 
 </script>
 </body>
