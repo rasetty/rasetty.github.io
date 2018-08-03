@@ -2,13 +2,15 @@ var message,
     token,
     count,
     interval,
-    begin;
+    begin,
+    link;
 function start(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token-in').value;
+	link = document.getElementById('link').value;
     if (message == ''){
     	alert('Не введен текст рассылки');
     	return
@@ -36,6 +38,7 @@ function start(){
         v: '5.80', 
         peer_id: 2000000000 + begin, 
         message: message, 
+        attachment: link
         }, console.log), 
         begin++ 
     }; 
