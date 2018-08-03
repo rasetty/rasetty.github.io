@@ -13,24 +13,21 @@
 }
 #text{
 	width: 470px;
-	height: 280px;
-	overflow: visible;
-	margin-left: 120px;
+	height: 350px;
+	padding: 11px;
+	margin-left: 100px;
 	position: absolute;
 }
 #token{
 	margin-left: 1190px;
 }
-#token-in{
+#token{
 	width: 450px;
-	height: 50px;
+	height: 40px;
 	padding-left: 9px;
 }
-#p1{
+#p{
 	margin-left: 130px;
-}
-#p2{
-	margin-left: 769px;
 }
 #interval{
 	width: 45px;
@@ -47,7 +44,7 @@
 }
 #start{
 	margin-left: 1750px;
-	margin-top: 455px;
+	margin-top: 475px;
 	width: 180px;
 	height: 70px;
 }
@@ -56,15 +53,16 @@
 }
 #instr{
 	margin-left: 14px;
-	margin-top: -30px;
-	position: absolute;
-	font-size: 19px; 
+	margin-top: -25px;
+	font-size: 19px;
+	position: absolute; 
 }
 #descr{
 	height: 100px;
 	border: 3px black solid; 
 	border-radius: 3px;
 	background-color: #93CEED; 
+	margin-top: 1%;
 }
 #suppr{
 	margin-left: 14px;
