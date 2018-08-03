@@ -45,12 +45,7 @@
   $('#text').keyup(function (eventObject) {
     document.cookie = 'one=' + eventObject.target.value;
   });
-	$(document).ready(function () {
-    $('#token').val(getCookie('two'));
-  });
-  $('#token').keyup(function (eventObject) {
-    document.cookie = 'two=' + eventObject.target.value;
-  });
+
 </script>
 </body>
 </html>
