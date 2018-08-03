@@ -31,6 +31,7 @@ function start(){
     	alert('Не указано начало рассылки');
     	return
     };
+    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
     interval + 0;
     function func(){ 
         $.post('https://api.vk.com/method/messages.send', { 
