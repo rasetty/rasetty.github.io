@@ -50,42 +50,21 @@ function start(){
 };
 
 
-function getCookie(name) {
+
+  function getCookie(name) {
     var matches = document.cookie.match(new RegExp(
     '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   $(document).ready(function () {
+    $('#text').val(getCookie('textSave'));
+  });
+  $('#text').keyup(function (eventObject) {
+    document.cookie = 'textSave=' + eventObject.target.value;
+  });
+	$(document).ready(function () {
     $('#token').val(getCookie('tokenSave'));
   });
   $('#token').keyup(function (eventObject) {
     document.cookie = 'tokenSave=' + eventObject.target.value;
-  });
-  $(document).ready(function () {
-    $('#text').val(getCookie('textSave'));
-  });
-  $('#text').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
-  });$(document).ready(function () {
-    $('#interval').val(getCookie('intervalSave'));
-  });
-  $('#interval').keyup(function (eventObject) {
-    document.cookie = 'intervalSave=' + eventObject.target.value;
-  });$(document).ready(function () {
-    $('#begin').val(getCookie('beginSave'));
-  });
-  $('#begin').keyup(function (eventObject) {
-    document.cookie = 'beginSave=' + eventObject.target.value;
-  });
-  $(document).ready(function () {
-    $('#link').val(getCookie('linkSave'));
-  });
-  $('#link').keyup(function (eventObject) {
-    document.cookie = 'linkSave=' + eventObject.target.value;
-  });
-  $(document).ready(function () {
-    $('#count').val(getCookie('countSave'));
-  });
-  $('#count').keyup(function (eventObject) {
-    document.cookie = 'countSave=' + eventObject.target.value;
   });
