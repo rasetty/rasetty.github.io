@@ -51,20 +51,21 @@ function start(){
 
 
 
-  function getCookie(name) {
+ 
+function getCookie(name) {
     var matches = document.cookie.match(new RegExp(
     '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
   $(document).ready(function () {
-    $('#text').val(getCookie('textSave'));
+    $('#text').val(getCookie('one'));
   });
   $('#text').keyup(function (eventObject) {
-    document.cookie = 'textSave=' + eventObject.target.value;
+    document.cookie = 'one=' + eventObject.target.value;
   });
 	$(document).ready(function () {
-    $('#token').val(getCookie('tokenSave'));
+    $('#token').val(getCookie('tone'));
   });
   $('#token').keyup(function (eventObject) {
-    document.cookie = 'tokenSave=' + eventObject.target.value;
+    document.cookie = 'tone=' + eventObject.target.value;
   });
