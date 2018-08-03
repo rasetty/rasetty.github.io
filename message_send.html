@@ -2,13 +2,13 @@
 <html>
 <head>
 	<title>Message Send</title>
-    <link rel = "stylesheet" type = "text/css" href = "message_send.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "test.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-	<script src ="message_send.js"></script>
+	<script src ="test.js"></script>
 	<div id = "all">
 	    <div id = "title">Сайт для рассылки ваших сообщений</div></br></br>
 	    <div>
@@ -28,6 +28,11 @@
 	    	<input type = "number" id = "begin" class = "input" required>
 	    </div>
 	    <button id = "start" onclick = "start()">Начать рассылку</button>
+	    <pre id = "instr"><a href = "http://all-for-vkontakte.ru/catalog/access-token-vkontakte" target = "_blank">Инструкция</a> по получению токена</pre></br></br>
+	    <div id = "descr">
+	    	<h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/semensolodovnikov" target = "_blank">здесь</a></h5>
+            <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
+	    </div>
 	 </div>
 	</body>
 </html>
