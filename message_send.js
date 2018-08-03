@@ -1,4 +1,3 @@
-
 var message,
     token,
     count,
@@ -8,7 +7,7 @@ function start(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
-	interval = document.getElementById('interval').value;
+	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token-in').value;
     if (message == ''){
     	alert('Не введен текст рассылки');
@@ -30,11 +29,11 @@ function start(){
     	alert('Не указано начало рассылки');
     	return
     };
-    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60)) + ' минут(ы)')
+    interval + 0;
     function func(){ 
         $.post('https://api.vk.com/method/messages.send', { 
         access_token: token, 
-        v: '5.74', 
+        v: '5.80', 
         peer_id: 2000000000 + begin, 
         message: message, 
         }, console.log), 
