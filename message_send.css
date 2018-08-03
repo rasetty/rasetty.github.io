@@ -24,7 +24,7 @@
 #token-in{
 	width: 450px;
 	height: 50px;
-	padding: 9px;
+	padding-left: 9px;
 }
 #p1{
 	margin-left: 130px;
@@ -41,9 +41,13 @@
 #begin{
 	width: 80px;
 }
+#link{
+	width: 300px;
+	padding-left: 9px;
+}
 #start{
 	margin-left: 1750px;
-	margin-top: 555px;
+	margin-top: 455px;
 	width: 180px;
 	height: 70px;
 }
