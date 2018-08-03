@@ -1,3 +1,22 @@
+ 
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+    '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+  }
+  $(document).ready(function () {
+    $('#text').val(getCookie('one'));
+  });
+  $('#text').keyup(function (eventObject) {
+    document.cookie = 'one=' + eventObject.target.value;
+  });
+	$(document).ready(function () {
+    $('#token').val(getCookie('tone'));
+  });
+  $('#token').keyup(function (eventObject) {
+    document.cookie = 'tone=' + eventObject.target.value;
+  });
+
 var message,
     token,
     count,
@@ -51,21 +70,3 @@ function start(){
 
 
 
- 
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-    '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-  $(document).ready(function () {
-    $('#text').val(getCookie('one'));
-  });
-  $('#text').keyup(function (eventObject) {
-    document.cookie = 'one=' + eventObject.target.value;
-  });
-	$(document).ready(function () {
-    $('#token').val(getCookie('tone'));
-  });
-  $('#token').keyup(function (eventObject) {
-    document.cookie = 'tone=' + eventObject.target.value;
-  });
