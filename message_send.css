@@ -11,6 +11,9 @@
 	margin-left: 37%;
 	font-size: 32px; 
 }
+#p{
+	margin-left: 130px;
+}
 #text{
 	width: 470px;
 	height: 350px;
@@ -18,16 +21,14 @@
 	margin-left: 100px;
 	position: absolute;
 }
-#token{
-	margin-left: 1190px;
+.input{
+	margin-left: 1192px;
 }
 #token{
 	width: 450px;
 	height: 40px;
 	padding-left: 9px;
-}
-#p{
-	margin-left: 130px;
+	margin-left: 1190px; 
 }
 #interval{
 	width: 45px;
@@ -42,18 +43,25 @@
 	width: 300px;
 	padding-left: 9px;
 }
+#N{
+	width: 60px;
+}
+#countN{
+	width: 60px;
+}
 #start{
 	margin-left: 1750px;
-	margin-top: 475px;
 	width: 180px;
-	height: 70px;
 }
-.input{
-	margin-left: 1190px;
+#saveDate{
+	margin-left: 1270px;
+}
+#clearDate{
+	margin-left: 1540px;
 }
 #instr{
 	margin-left: 14px;
-	margin-top: -25px;
+	margin-top: 345px;
 	font-size: 19px;
 	position: absolute; 
 }
@@ -62,7 +70,7 @@
 	border: 3px black solid; 
 	border-radius: 3px;
 	background-color: #93CEED; 
-	margin-top: 1%;
+	margin-top: 19%;
 }
 #suppr{
 	margin-left: 14px;
@@ -71,4 +79,9 @@
 #god{
 	margin-left: 44%;
 	margin-top: 23px;
+}
+.button{
+	margin-top: 300px;
+	height: 70px;
+	position: absolute;
 }
