@@ -1,35 +1,21 @@
- 
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-    '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
-  }
-  $(document).ready(function () {
-    $('#text').val(getCookie('one'));
-  });
-  $('#text').keyup(function (eventObject) {
-    document.cookie = 'one=' + eventObject.target.value;
-  });
-	$(document).ready(function () {
-    $('#token').val(getCookie('tone'));
-  });
-  $('#token').keyup(function (eventObject) {
-    document.cookie = 'tone=' + eventObject.target.value;
-  });
 
 var message,
     token,
     count,
     interval,
     begin,
-    link;
+    link,
+    N,
+    countN;
 function start(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
-	begin = document.getElementById('begin').value - 1;
+	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
 	link = document.getElementById('link').value;
+	N  = document.getElementById('N').value;
+	countN = document.getElementById('countN').value;
     if (message == ''){
     	alert('Не введен текст рассылки');
     	return
@@ -52,21 +38,64 @@ function start(){
     };
     alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
     interval + 0;
-    function func(){ 
-        $.ajax('https://api.vk.com/method/messages.send', { 
-        access_token: token, 
-        v: '5.80', 
-        peer_id: 2000000000 + begin, 
-        message: message, 
-        attachment: link
-        }), 
-        begin++ 
-    }; 
-    var timerId = setInterval(func, interval); 
-    setTimeout(function(){ 
-    clearInterval(timerId); 
-    }, interval * count);
-};
+   function baz(){
+      var newBegin = begin;
+          const CONFIG = {
+          app: {
+              dev: true
+          },
+          access_token: token
+      };
+      function postMsg(peer_id, msg, callback) {
+          $.ajax({
+              url: 'https://api.vk.com/method/messages.send',
+              jsonp: 'callback',
+              dataType: 'jsonp',
+              data: {
+                  access_token: CONFIG.access_token,
+                  peer_id: peer_id,
+                  message: msg,
+                  attachment: link,
+                  v: '5.74'
+              },
+              
+              success: jsonp=> callback(jsonp)
+              
+          });
+
+      }
+      var timerId = setInterval(()=> {
+          let peer_id = 2000000000 + newBegin++;
+      
+          postMsg(peer_id, message, jsonp=> {});
+      }, interval);
+      
+      setTimeout(function() {
+          clearInterval(timerId);
+      }, interval * count);}
+      var timer = setInterval(baz, N * 60 * 1000); 
+      setTimeout(function(){ 
+      clearInterval(timer); 
+      }, N * 60 * 1000 * (countN - 1));
+      baz();
+};  
+function сlear(){
+	localStorage.clear();
+	window.location.reload();
+}
+function save(){
+	localStorage.setItem('tokenS', document.getElementById('token').value); 
+	localStorage.setItem('textS', document.getElementById('text').value); 
+	localStorage.setItem('intervalS', document.getElementById('interval').value); 
+	localStorage.setItem('linkS', document.getElementById('link').value); 
+	localStorage.setItem('countS', document.getElementById('count').value);
+	localStorage.setItem('beginS', document.getElementById('begin').value);  
+}
 
 
-
+document.getElementById('token').value = localStorage.getItem('tokenS')
+document.getElementById('text').value = localStorage.getItem('textS')
+document.getElementById('link').value = localStorage.getItem('linkS')
+document.getElementById('count').value = localStorage.getItem('countS')
+document.getElementById('begin').value = localStorage.getItem('beginS')
+document.getElementById('interval').value = localStorage.getItem('intervalS')
