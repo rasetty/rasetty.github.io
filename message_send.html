@@ -2,20 +2,19 @@
 <html>
 <head>
   <title>Message Send</title>
-    <link rel = "stylesheet" type = "text/css" href = "message_send.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "test.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
 </head>
 <body> 
-<script src ="message_send.js"></script>
-  <div id = "all">
+<div id = "all">
       <div id = "title">Сайт для рассылки ваших сообщений</div></br></br>
-      <div>
-          <em id = "p1">Введите нужный для отправки текст</em>
-          <em id = "p2">Введите токен нужной страницы</em>
-      </div>
+      <div style = "margin-bottom: -20px;">   
+        <em id = "p">Введите нужный для отправки текст</em></br>
         <textarea id = "text" required autocomplete = 'on'></textarea>
-      <input type = "text" id = "token" required autocomplete = 'on'></br>
+      </div>
+      <em class = "input" >Введите токен нужной страницы</em>
+      <input type = "text" id = "token" required autocomplete = 'on'></br></br>
       <div>
         <em class = "input">Интервал</em>
         <input type = "number" id = "interval" class = "input" required></br></br>
@@ -25,14 +24,21 @@
         <input type = "number" id = "begin" class = "input" required></br></br>
         <em class = "input">Ссылка на прикрепляемый файл</em>
         <em class = "input">(Ссылка типа wall246598308_5088)</em>
-        <input type = "text" id = "link" class = "input" required>
+        <input type = "text" id = "link" class = "input" required></br></br>
+        <em class = "input">Рассылать каджые N минут, введите N</em>
+        <input type="number" id = "N" class = "input" value = '30' min = "30" required></br></br>
+        <em class = "input">Сколько сделать рассылок</em>
+        <input type="number" id = "countN" class = "input" value = '1' min = "1" required>
       </div>
-      <button id = "start" onclick = "start()">Начать рассылку</button>
+      <button class = "button" id = "start" onclick = "start()">Начать рассылку</button>
+      <button class = "button" id = "saveDate" onclick = "save()">Сохранить введенные данные</button>
+      <button class = "button" id = "clearDate" onclick = "сlear()">Очистить сохранение</button>
       <pre id = "instr"><a href = "http://all-for-vkontakte.ru/catalog/access-token-vkontakte" target = "_blank">Инструкция</a> по получению токена</pre></br></br>
       <div id = "descr">
         <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/semensolodovnikov" target = "_blank">здесь</a></h5>
-            <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
+        <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
       </div>
    </div>
+   <script src ="test.js"></script>
 </body>
 </html>
