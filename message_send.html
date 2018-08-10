@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Message Send</title>
-    <link rel = "stylesheet" type = "text/css" href = "message_send.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "test.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
 </head>
@@ -53,9 +53,16 @@
 
        <div class = "btn" id = "btns">
 
-        <button class = "btn" style = "margin-right: 19px;" id = "start" onclick = "start()">Начать рассылку</button>
-        <button class = "btn" style = "margin-right: 19px;" id = "saveDate" onclick = "save()">Сохранить введенные данные</button>
-        <button class = "btn" style = "margin-right: 19px;" id = "clearDate" onclick = "сlear()">Очистить сохранение</button>
+        <div style = "padding-right: 60px;">
+
+          <label for = "myCheckbox" style = "font-size: 22px; padding: 13px;">Закреплять сообщения</label>
+          <input type = "checkbox" id = "myCheckbox" style = "transform: scale(3.5,3.5);">
+
+        </div>
+
+        <button id = "start" class = "btn button"  onclick = "start()">Начать рассылку</button>
+        <button id = "saveDate" class = "btn button"  onclick = "save()">Сохранить введенные данные</button>
+        <button id = "clearDate" class = "btn button"  onclick = "сlear()">Очистить сохранение</button>
 
       </div>
 
@@ -67,7 +74,7 @@
       </div>
 
    </div>
-
-   <script src ="message_send.js"></script>
+   
+   <script src ="test.js"></script>
 </body>
 </html>
