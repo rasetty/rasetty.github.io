@@ -19,7 +19,6 @@ function create(){
     place.appendChild(input);
     iForName++;
 }
-
 var message,
     token,
     count,
@@ -27,17 +26,111 @@ var message,
     begin,
     link,
     N,
-    countN,
-    link1,
-    link2, 
-    link3, 
-    link4, 
-    link5, 
-    link6, 
-    link7, 
-    link8, 
-    link9;
+    countN;
+
 function start(){
+	if ($("#myCheckbox").prop("checked")){
+		withPin();
+	} else {
+	usual();
+}
+
+function withPin(){
+	message = document.getElementById('text').value;
+    count = document.getElementById('count').value;
+	begin = document.getElementById('begin').value;
+	interval = document.getElementById('interval').value * 1000;
+	token = document.getElementById('token').value;
+	link = document.getElementById('link').value;
+	N  = document.getElementById('N').value;
+	countN = document.getElementById('countN').value;
+    if (message == ''){
+    	alert('Не введен текст рассылки');
+    	return
+    };
+    if (token == ''){
+    	alert('Не введен токен');
+    	return
+    };
+    if (interval == ''){
+    	alert('Не указан интервал');
+    	return
+    };
+    if (count == ''){
+    	alert('Не указано во сколько бесед слать');
+    	return
+    };
+    if (begin == ''){
+    	alert('Не указано начало рассылки');
+    	return
+    };
+    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
+    interval + 0;
+    function pin(){
+
+	var newBegin2 = begin;
+
+    const CONFIG = {
+    app: {
+        dev: true
+    },
+    access_token: token
+};
+function postMsg(peer_id, msg, callback) {
+    $.ajax({
+        url: 'https://api.vk.com/method/messages.send',
+        jsonp: 'callback',
+        dataType: 'jsonp',
+        data: {
+            access_token: CONFIG.access_token,
+            peer_id: peer_id,
+            message: msg,
+            attachment: link,
+            v: '5.74'
+        },
+
+        success: jsonp=> callback(jsonp)
+    });
+}
+
+function pinMsg(peer_id, msgId, callback) {
+    $.ajax({
+        url: 'https://api.vk.com/method/messages.pin',
+        jsonp: 'callback',
+        dataType: 'jsonp',
+        data: {
+            access_token: CONFIG.access_token,
+            peer_id: peer_id,
+            message_id: msgId,
+            v: '5.74'
+        },
+
+        success: jsonp=> callback(jsonp)
+    });
+}
+
+var timerId = setInterval(()=> {
+    let peer_id = 2000000000 + newBegin2++;
+
+    postMsg(peer_id, message, jsonp=> {
+        pinMsg(peer_id, jsonp.response, jsonp=> {
+            if (CONFIG.app.dev) console.log(jsonp);
+        });
+    });
+}, interval);
+
+setTimeout(function() {
+    clearInterval(timerId);
+}, interval * count);}
+
+var timer = setInterval(pin, N * 60 * 1000); 
+setTimeout(function(){ 
+clearInterval(timer); 
+}, N * 60 * 1000 * (countN - 1));
+pin();
+}
+
+function usual(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
@@ -85,7 +178,7 @@ function start(){
                   access_token: CONFIG.access_token,
                   peer_id: peer_id,
                   message: msg,
-                  attachment: link,|
+                  attachment: link,
                    
                   v: '5.74'
               },
@@ -109,7 +202,7 @@ function start(){
       clearInterval(timer); 
       }, N * 60 * 1000 * (countN - 1));
       baz();
-};  
+}};  
 function сlear(){
 	localStorage.clear();
 	window.location.reload();
@@ -123,11 +216,9 @@ function save(){
 	localStorage.setItem('beginS', document.getElementById('begin').value);  
 }
 
-
-document.getElementById('token').value = localStorage.getItem('tokenS')
-document.getElementById('text').value = localStorage.getItem('textS')
-document.getElementById('link').value = localStorage.getItem('linkS')
-document.getElementById('count').value = localStorage.getItem('countS')
-document.getElementById('begin').value = localStorage.getItem('beginS')
+document.getElementById('token').value = localStorage.getItem('tokenS');
+document.getElementById('text').value = localStorage.getItem('textS');
+document.getElementById('link').value = localStorage.getItem('linkS');
+document.getElementById('count').value = localStorage.getItem('countS');
+document.getElementById('begin').value = localStorage.getItem('beginS');
 document.getElementById('interval').value = localStorage.getItem('intervalS')
-
