@@ -1,3 +1,24 @@
+var iForName = 1;
+var iForRestr = 1;
+
+function create(){
+	if (iForRestr == 10) {
+		return
+	} else {
+		iForRestr++;
+	};
+    var name = 'link' + iForName; 
+	var em = document.createElement('em');
+	em.innerHTML = 'Ссылка на прикрепляемый файл';
+	var input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'input');
+    input.setAttribute('id', name);
+    var place = document.getElementById('js');
+    place.appendChild(em);
+    place.appendChild(input);
+    iForName++;
+}
 
 var message,
     token,
@@ -6,7 +27,16 @@ var message,
     begin,
     link,
     N,
-    countN;
+    countN,
+    link1,
+    link2, 
+    link3, 
+    link4, 
+    link5, 
+    link6, 
+    link7, 
+    link8, 
+    link9;
 function start(){
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
@@ -55,7 +85,8 @@ function start(){
                   access_token: CONFIG.access_token,
                   peer_id: peer_id,
                   message: msg,
-                  attachment: link,
+                  attachment: link,|
+                   
                   v: '5.74'
               },
               
@@ -99,3 +130,4 @@ document.getElementById('link').value = localStorage.getItem('linkS')
 document.getElementById('count').value = localStorage.getItem('countS')
 document.getElementById('begin').value = localStorage.getItem('beginS')
 document.getElementById('interval').value = localStorage.getItem('intervalS')
+
