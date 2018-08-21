@@ -75,6 +75,40 @@
 
    </div>
    
+  <input type="number" id="1">
+<input type="submit" onclick="f()">
+<script type="text/javascript">
+
+
+	if (!("Notification" in window)) {
+		alert('Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.');
+    }
+    else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function (permission) {
+	
+			if (!(permission === "granted")) {
+				alert('Вы запретили показывать уведомления'); 
+			}
+	});
+	
+	       
+}
+function f() {
+	
+
+	var i = document.getElementById('1').value;
+	console.log(i == 1)
+	if (i == 1) {
+		var notification = new Notification('Введите капчу',{ 
+			body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
+			dir: 'auto',
+			icon: 'captcha.png' }
+);
+}
+}
+</script>
+  
+  
    <script src ="message_send.js"></script>
 </body>
 </html>
