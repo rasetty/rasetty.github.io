@@ -1,6 +1,6 @@
-var iForName = 1;
+var iForName = 2;
 var iForRestr = 1;
-
+var captcha = false;
 function create(){
 	if (iForRestr == 10) {
 		return
@@ -24,11 +24,24 @@ var message,
     count,
     interval,
     begin,
-    link,
     N,
-    countN;
+    countN,
+    link1,
+    link2,
+    link3,
+    link4;
 
 function start(){
+	if (!("Notification" in window)) {
+		alert('Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.');
+	}
+	else if (Notification.permission !== 'denied') {
+		Notification.requestPermission(function (permission) {
+		if (!(permission === "granted")) {
+			alert('Вы запретили показывать уведомления'); 
+		}
+	});      
+	}
 	if ($("#myCheckbox").prop("checked")){
 		withPin();
 	} else {
@@ -41,9 +54,9 @@ function withPin(){
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value;
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
+	link1 = document.getElementById('link1').value;
     if (message == ''){
     	alert('Не введен текст рассылки');
     	return
@@ -76,16 +89,16 @@ function withPin(){
     },
     access_token: token
 };
-function postMsg(peer_id, msg, callback) {
+function postMsg(msg, callback) {
     $.ajax({
         url: 'https://api.vk.com/method/messages.send',
         jsonp: 'callback',
         dataType: 'jsonp',
         data: {
             access_token: CONFIG.access_token,
-            peer_id: peer_id,
+            peer_id: 2000000000 + newBegin2,
             message: msg,
-            attachment: link,
+            attachment: link1,
             v: '5.74'
         },
 
@@ -94,6 +107,15 @@ function postMsg(peer_id, msg, callback) {
 }
 
 function pinMsg(peer_id, msgId, callback) {
+	if (captcha){
+    	count++;
+    	var notification = new Notification('Введите капчу',{ 
+			body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
+			dir: 'auto',
+			icon: 'captcha.png'
+		});
+    	return
+    };
     $.ajax({
         url: 'https://api.vk.com/method/messages.pin',
         jsonp: 'callback',
@@ -107,15 +129,17 @@ function pinMsg(peer_id, msgId, callback) {
 
         success: jsonp=> callback(jsonp)
     });
+    if(jsonp.error.error_code = 14){
+		captcha = true;
+	}else{
+		captcha = false;
+	};
 }
 
 var timerId = setInterval(()=> {
-    let peer_id = 2000000000 + newBegin2++;
 
-    postMsg(peer_id, message, jsonp=> {
-        pinMsg(peer_id, jsonp.response, jsonp=> {
-            if (CONFIG.app.dev) console.log(jsonp);
-        });
+    postMsg(message, jsonp=> {
+        pinMsg(peer_id, jsonp.response, jsonp=> {});
     });
 }, interval);
 
@@ -136,9 +160,9 @@ function usual(){
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value;
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
+	link1 = document.getElementById('link1').value;
     if (message == ''){
     	alert('Не введен текст рассылки');
     	return
@@ -162,36 +186,50 @@ function usual(){
     alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
     interval + 0;
    function baz(){
-      var newBegin = begin;
+      var newBegin2 = begin;
           const CONFIG = {
           app: {
               dev: true
           },
           access_token: token
       };
-      function postMsg(peer_id, msg, callback) {
+      function postMsg(msg, callback) {
+        
           $.ajax({
               url: 'https://api.vk.com/method/messages.send',
               jsonp: 'callback',
               dataType: 'jsonp',
               data: {
                   access_token: CONFIG.access_token,
-                  peer_id: peer_id,
                   message: msg,
-                  attachment: link,
-                   
-                  v: '5.74'
+                  peer_id: 2000000000 + newBegin2,
+                  attachment: link1,
+                  v: '5.80'
               },
               
-              success: jsonp=> callback(jsonp)
-              
+              success: jsonp=> {
+              	callback(jsonp)
+                if(jsonp.error.error_code == 14){
+	            	captcha = true;
+	            }else{
+	            	captcha = false;
+	            };
+	            if (captcha){
+	            	count++;
+	            	var notification = new Notification('Введите капчу',{ 
+						body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
+						dir: 'auto',
+						icon: 'captcha.png'
+					});
+                	return 
+                };
+	            newBegin2++;
+	      }              
           });
-
       }
       var timerId = setInterval(()=> {
-          let peer_id = 2000000000 + newBegin++;
-      
-          postMsg(peer_id, message, jsonp=> {});
+          newBegin2++; 
+          postMsg(message, jsonp=> {console.log(jsonp)});
       }, interval);
       
       setTimeout(function() {
@@ -211,14 +249,14 @@ function save(){
 	localStorage.setItem('tokenS', document.getElementById('token').value); 
 	localStorage.setItem('textS', document.getElementById('text').value); 
 	localStorage.setItem('intervalS', document.getElementById('interval').value); 
-	localStorage.setItem('linkS', document.getElementById('link').value); 
+	localStorage.setItem('linkS', document.getElementById('link1').value); 
 	localStorage.setItem('countS', document.getElementById('count').value);
 	localStorage.setItem('beginS', document.getElementById('begin').value);  
 }
 
 document.getElementById('token').value = localStorage.getItem('tokenS');
 document.getElementById('text').value = localStorage.getItem('textS');
-document.getElementById('link').value = localStorage.getItem('linkS');
+document.getElementById('link1').value = localStorage.getItem('linkS');
 document.getElementById('count').value = localStorage.getItem('countS');
 document.getElementById('begin').value = localStorage.getItem('beginS');
 document.getElementById('interval').value = localStorage.getItem('intervalS')
