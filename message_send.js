@@ -139,6 +139,7 @@ function pinMsg(peer_id, msgId, callback) {
 var timerId = setInterval(()=> {
 
     postMsg(message, jsonp=> {
+	    let peer_id = 2000000000 + newBegin++;
         pinMsg(peer_id, jsonp.response, jsonp=> {});
     });
 }, interval);
