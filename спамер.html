@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Спамер</title>
+    <link rel = "stylesheet" type = "text/css" href = "спамер.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+</head>
+<body> 
+  <div id = "all">
+
+   <div style = "display: flex; justify-content: space-between;">
+   <div style = "display: flex; flex-direction: column;">
+	<div class = "data">
+		<em>Ссылки на паблики для спама, разделять пробелом</em>
+		<textarea id = "groups"></textarea>
+	</div>
+	<div class = "data">
+		<input type = "text" id = 'token' placeholder = "Токен">
+		<input type = "number" id = 'interval' min = '3' placeholder = "Интервал">
+		<input type = "text" id = 'attachments' placeholder = "Картинка">
+		<input type = "text" id = 'clientKey' placeholder = "Ключ на антикапче">
+	</div>
+	<div style = "padding: 40px">
+    	<button onclick = "start()" class = "btn b">Начать</button>
+    	<button onclick = "save()" class = "btn b">Cохранить данные</button>
+    	<button onclick = "clear()" class = "btn b">Очистить сохранение</button>
+    </div>
+    </div>
+
+
+   <div style = "display: flex; flex-direction: column;">
+	<div class = "data">
+		<em>Сообщение для публикации на стену</em>
+		<textarea id = "message"></textarea>
+	</div>
+	<textarea id = "log">
+Лог
+    </textarea>
+    </div>
+   </div>
+
+    
+ </div> 
+	<script type="text/javascript" src = "спамер.js"></script>
+</body>
