@@ -205,13 +205,16 @@ function pinMsg(msgId, callback) {
             v: '5.74'
         },
 
-        success: jsonp=> callback(jsonp)
-    });
-    if(jsonp.error.error_code = 14){
+        success: jsonp=> {
+		callback(jsonp)
+		if(jsonp.error.error_code = 14){
 		captcha = true;
 	}else{
 		captcha = false;
 	};
+	}
+    });
+    
 }
 
 var timerId = setInterval(()=> {
