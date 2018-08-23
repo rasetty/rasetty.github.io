@@ -184,7 +184,7 @@ function postMsg(msg, callback) {
     });
 }
 
-function pinMsg(peer_id, msgId, callback) {
+function pinMsg(msgId, callback) {
 	if (captcha){
     	count++;
     	var notification = new Notification('Введите капчу',{ 
@@ -200,7 +200,7 @@ function pinMsg(peer_id, msgId, callback) {
         dataType: 'jsonp',
         data: {
             access_token: CONFIG.access_token,
-            peer_id: peer_id,
+            peer_id: 2000000000 + newBegin2,
             message_id: msgId,
             v: '5.74'
         },
