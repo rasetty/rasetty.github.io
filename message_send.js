@@ -127,20 +127,23 @@ function pinMsg(peer_id, msgId, callback) {
             v: '5.74'
         },
 
-        success: jsonp=> callback(jsonp)
+        success: jsonp=> {callback(jsonp)
+        	if(jsonp.error.error_code = 14){
+				captcha = true;
+			}else{
+				captcha = false;
+			};
+
+        }
     });
-    if(jsonp.error.error_code = 14){
-		captcha = true;
-	}else{
-		captcha = false;
-	};
+    
 }
 
 var timerId = setInterval(()=> {
 
     postMsg(message, jsonp=> {
-	    let peer_id = 2000000000 + newBegin2++;
-        pinMsg(peer_id, jsonp.response, jsonp=> {});
+    	let peer_id = 2000000000 + newBegin2++;
+        pinMsg(peer_id, jsonp.response, jsonp=> {console.log(jsonp)});
     });
 }, interval);
 
@@ -229,7 +232,7 @@ function usual(){
           });
       }
       var timerId = setInterval(()=> {
-          newBegin2++; 
+          
           postMsg(message, jsonp=> {console.log(jsonp)});
       }, interval);
       
