@@ -220,7 +220,7 @@ function pinMsg(msgId, callback) {
 var timerId = setInterval(()=> {
 
     postMsg(message, jsonp=> {
-        pinMsg(jsonp.response, jsonp=> {});
+        pinMsg(jsonp.response, jsonp=> {conso;e.log(jsonp)});
     });
 }, interval);
 
