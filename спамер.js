@@ -87,7 +87,7 @@ function start(){
 	        	
 	        }
  		}})
- 		postC(callback,)
+ 		postC(callback, sid, keyCapt)
 	}//посчу одну запись
 		
 	function postC(callback, sid, key) {
@@ -108,9 +108,7 @@ function start(){
 	        },
 	        success: jsonp=> {
 	        	callback(jsonp)
-	        	if(jsonp.error.error_code == 14){
-	        		
-	        	}
+	        	
 	        }
  		});
 	
