@@ -221,27 +221,29 @@ async function startHandler() {
             let payload = { attachments: data.attachments };
 
             let postCallback = async (error, response)=> {
-                if (error.error_code === 14) { // Если капча
-                    if (!antiCaptcha.clientKey) throw new Error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
+                if (error) {
+                    if (error.error_code === 14) { // Если капча
+                        if (!antiCaptcha.clientKey) throw new Error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
 
-                    let captchaKey = await antiCaptcha.resolveCaptcha(error.captcha_img);
+                        let captchaKey = await antiCaptcha.resolveCaptcha(error.captcha_img);
 
-                    if (!captchaKey) throw new Error('Ошибка при решении капчи.');
+                        if (!captchaKey) throw new Error('Ошибка при решении капчи.');
 
-                    payload.captcha_sid = error.captcha_sid;
-                    payload.captcha_key = captchaKey;
+                        payload.captcha_sid = error.captcha_sid;
+                        payload.captcha_key = captchaKey;
 
-                    // Рекурсирвно отправляем еще одну попытку отправки сообщения уже с капчей
-                    return vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
-                } else {
-                    console.error(error); 
-throw new Error('Ошибка от VK');
+                        // Рекурсирвно отправляем еще одну попытку отправки сообщения уже с капчей
+                        return vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
+                    } else {
+                        console.error(error);
+                        throw new Error('Ошибка от VK');
+                    }
                 }
 
                 appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
 
-                console.log('Делаем искуственную задерку в 3 секунды...');
-                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 3000) });
+                console.log('Делаем искуственную задерку в 1 секунду...');
+                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 1000) });
                 console.log('Готово.');
             }
 
