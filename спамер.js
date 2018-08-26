@@ -1,152 +1,277 @@
-function start(){
+'use script';
 
-	var message = document.getElementById('message').value, //получаю сообщение
-	    token = document.getElementById('token').value, //получаю токен
-	    attachments = (document.getElementById('attachments').value).substring(29), //получаю сразу ссылку
-	    groups = (document.getElementById('groups').value).split(' '), //получаю ссылки
-	    i = groups.length - 1, //узнаю колво ссылок групп
-	    interval = document.getElementById('interval').value * 1000; //задаю интервал
-	
-	function post(callback) {
-		
-		$.ajax({
-	        url: 'https://api.vk.com/method/wall.post',
-	        jsonp: 'callback',
-	        dataType: 'jsonp',
-	        data: {
-	            access_token: token,
-	            owner_id: (groups[i]).substring(19) * (-1),
-	            from_group: 0,
-	            message: message,
-	            attachments: attachments,
-	            v: '5.80'
-	        },
-	        success: jsonp=> {
-	        	callback(jsonp)
-	        	var capt,
-	        	    sid = jsonp.error.captcha_sid,
-	        	    keyCapt,
-	        	    clientKey = document.getElementById('clientKey')
-	        	    taskId;
+class AntiCaptcha {
+    constructor(clientKey) {
+        this.clientKey = clientKey;
+        this.corsProxy = 'https://cors-anywhere.herokuapp.com/';
+    }
 
-	        	if(jsonp.error.error_code == 14) { //если нужна капча
+    createTask(captchaUrl, callback) {
+        this.getBase64FromUrl(captchaUrl, (error, captchaBase64)=> {
+            if (error) throw new Error(error);
 
-                	function toDataURL(src, callback, outputFormat){
-						var img = new Image();
-						img.crossOrigin = 'Anonymous';
-						img.onload = function() {
-							var canvas = document.createElement('CANVAS'); 
-							var ctx = canvas.getContext('2d'); 
-							var dataURL; 
-							canvas.height = this.naturalHeight; 
-							canvas.width = this.naturalWidth; 
-							ctx.drawImage(this, 0, 0); 
-							dataURL = canvas.toDataURL(outputFormat); 
-							callback(dataURL); 
-						}; 
-						img.src = src; 
-						if (img.complete || img.complete === undefined) {
-							img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="; 
-							img.src = src; 
-						} 
-					} toDataURL( jsonp.error.captcha_img, function(dataUrl) {
-					      capt = dataUrl;
-					});//перевод капчи в база 56
+            $.ajax({
+                url: 'https://api.anti-captcha.com/createTask',
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
 
-					$.ajax({
-						url: 'https://api.anti-captcha.com/createTask',
-						type: 'JSON POST',
-						jsonp: 'res',
-						data:{
-   						"clientKey": clientKey,
-   						"task":
-   						    {
-   						        "type":"ImageToTextTask",
-   						        "body": capt
-   						    }},
-   						    success: jsonp=> {taskId = res.taskId}
-   						        
-        				})//отправка изобржения на антикапчу
+                data: JSON.stringify({
+                    clientKey: this.clientKey,
+                    languagePool: 'ru',
+                    task: {
+                        'type': 'ImageToTextTask',
+                        'body': captchaBase64,
+                        'phrase': false,
+                        'case': false,
+                        'numeric': false,
+                        'math': false
+                    }
+                }),
 
-   					setTimeout( function(){
+                success: callback
+            });
+        });
+    }
 
-   						$.ajax({
-							url: 'https://api.anti-captcha.com/getTaskResult',
-							type: 'JSON POST',
-							jsonp: 'res',
-							data: {
-   								"clientKey": clientKey,
-   								"taskId": taskId
-   							 },   
-   							success: jsonp=> {keyCapt = res.solution.text}
-   						        
-        				
-   					})
+    getTaskResult(taskId, callback) {
+        $.ajax({
+            url: 'https://api.anti-captcha.com/getTaskResult',
+            method: 'POST',
+            contentType: 'application/json; charset=utf-8',
 
-   					}, 8000)
-	        	
-	        }
- 		}})
- 		postC(callback, sid, keyCapt)
-	}//посчу одну запись
-		
-	function postC(callback, sid, key) {
-		
-		$.ajax({
-	        url: 'https://api.vk.com/method/wall.post',
-	        jsonp: 'callback',
-	        dataType: 'jsonp',
-	        data: {
-	            access_token: token,
-	            owner_id: (groups[i]).substring(19) * (-1),
-	            from_group: 0,
-	            message: message,
-	            attachments: attachments,
-	            captcha_sid: sid,
-	            captcha_key: key,
-	            v: '5.80'
-	        },
-	        success: jsonp=> {
-	        	callback(jsonp)
-	        	
-	        }
- 		});
-	
+            data: JSON.stringify({
+                clientKey: this.clientKey,
+                taskId: taskId
+            }),
 
-	var process = setInterval(function(){
+            success: callback
+        });
+    }
 
-		post(jsonp=> {console.log(jsonp)})
-	}, interval); //запускаю цикл
-    
-	setTimeout(function(){
-		clearInterval(process)
-	},interval * groups.length) //остановка цикла 
+    async resolveCaptcha(captchaUrl) {
+        return await new Promise((resolve, reject)=> {
+            this.createTask(captchaUrl, (response)=> {
+                if (response.errorId !== 0) {
+                    console.error(response);
+                    throw new Error('Ошибка в создании таска для капчи ' + captchaUrl);
+                }
 
-}
+                let intervalId = setInterval(()=> {
+                    this.getTaskResult(response.taskId, (response)=> {
+                        if (response.status === 'ready') {
+                            clearInterval(intervalId);
+                            resolve(response.solution.text);
+                        }
+                    });
+                }, 2000);
+            })
+        });
+    }
+
+    getBase64FromUrl(captchaUrl, callback) {
+        if (!captchaUrl || typeof captchaUrl !== 'string') callback(new Error('Аргумент captchaUrl обязателен и должен быть строкой.'));
+
+        let captchaImg = new Image();
+        captchaImg.crossOrigin = 'anonymous';
+        captchaImg.src = this.corsProxy + captchaUrl;
+
+        captchaImg.onload = () => {
+            let canvas = document.createElement('canvas');
+            canvas.width = captchaImg.width;
+            canvas.height = captchaImg.height;
+
+            let ctx = canvas.getContext('2d');
+            ctx.drawImage(captchaImg, 0, 0);
+
+            let base64 = canvas.toDataURL('image/jpeg');
+
+            let error = null;
+
+            if (!base64) error = new Error('Ошибка в получении base64');
+
+            callback(error, base64);
+        };
+
+        captchaImg.onerror = () => {
+            callback(new Error('Ошибка в загрузке изображения капчи по URL ' + captchaUrl));
+        };
+    }
 }
 
+class VkController {
+    constructor(token = null) {
+        // Задаём опции для всех методов класса.
+        this.controllerOptions = {
+            token: token, // Токен авторизации
+            v: '5.80', // Версия API
+            apiUrl: 'https://api.vk.com/method/' // URL, по которому будут идти запросы.
+        };
 
-
-
-function сlear(){
-	localStorage.clear();
-	window.location.reload();
+        // Расширяем класс
+        this.wall = new VkWallController(this.controllerOptions);
+    }
 }
-function save(){
-	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('messageS', document.getElementById('message').value); 
-	localStorage.setItem('intervalS', document.getElementById('interval').value);
-	localStorage.setItem('groupsS', document.getElementById('groups').value);  
-	localStorage.setItem('attachmentsS', document.getElementById('attachments').value); 
+
+class VkWallController {
+    constructor(controllerOptions) {
+        // Наследуемые опции от родительского класса.
+        this.controllerOptions = controllerOptions;
+
+        // Расширяем опции под наш класс.
+        this.controllerOptions.methodClass = 'wall';
+
+        // Дополняем URL.
+        this.controllerOptions.apiUrl = this.controllerOptions.apiUrl + this.controllerOptions.methodClass + '.';
+    }
+
+    post(message = '', target, _payload = {}, callback) {
+        let methodName = 'post'; // Название метода из VK.
+        let url = this.controllerOptions.apiUrl + methodName; // Формируем URL, на который пойдёт запрос.
+
+        // Создаём payload, который будет отправлен с запросом.
+        let payload = {
+            access_token: this.controllerOptions.token, // Токен VK
+            v: this.controllerOptions.v, // Версия API
+            message: message, // Сообщение, которое будет на стене.
+            owner_id: target // Сообщение, куда идёт отправка.
+        };
+
+        // Дополняем payload, переданными свойствами.
+        for (let key in _payload) payload[key] = _payload[key];
+
+        if (payload.attachments.length) {
+            payload.attachments = payload.attachments.join(',');
+        }
+
+        // Отправляем запрос.
+        $.ajax({
+            url,
+            dataType: 'jsonp',
+            data: $.param(payload),
+
+            success: (res)=> {
+                // Если ошибка, то возвращаем её первым аргументом.
+                if (res.error) return callback(res);
+
+                // Если ошибки нет, то возвращаем ответ вторым аргументом.
+                callback(null, res.response);
+            }
+        });
+    }
+
+    postGroupByUrl(message = '', groupUrl, _payload = {}, callback) {
+        let groupShortName = groupUrl.match(/https?:\/\/vk\.com\/([\w]+)/)[1];
+
+        // Узнаём id группы по короткому имени.
+        $.ajax({
+            url: 'https://api.vk.com/method/groups.getById',
+            dataType: 'jsonp',
+            data: { group_id: groupShortName, access_token: this.controllerOptions.token, v: this.controllerOptions.v },
+
+            success: (res)=> {
+                // Если ошибка, то возвращаем её первым аргументом.
+                if (res.error) return callback(res);
+
+                // Вытаскиваем ID группы из ответа.
+                let groupId = res.response[0].id;
+
+                // Постим сообщение из уже готового метода.
+                this.post(message, -groupId, _payload, callback);
+            }
+        });
+    }
 }
 
-document.getElementById('token').value = localStorage.getItem('tokenS');
-document.getElementById('message').value = localStorage.getItem('messageS');
-document.getElementById('attachments').value = localStorage.getItem('attachmentsS');
-document.getElementById('groups').value = localStorage.getItem('groupsS');
-document.getElementById('interval').value = localStorage.getItem('intervalS');
 
+function getData() {
+    return {
+        message:        $('#message').val(), // Сообщение. Пример: "Hello World!"
+        token:          $('#token').val(), // Токен. Пример: 5f3ee4e14222979bc714a9c2cad3f9c8997asfgh35gsad478f0354f80a8a649f84128c6785a8984cbd4cdc
+        clientKey:      $('#clientKey').val(), // Ключ на антикапче. Пример: 5f3ee4e14222979b
+        attachments:    $('#attachments').val().replace(/\s+/g,' ').trim().split(' '), // Приложения. Пример: photo-26604743_456239041 photo-26604743_456239041
+        groupsUrl:      $('#groups').val().replace(/\s+/g,' ').trim().split(' '), // Ссылки на группы. Пример: https://vk.com/club26604743 https://vk.com/club26604743
+        interval:       parseInt($('#interval').val()) * 1000 || 3000, // Задерка между цикли новых отправок сообщений (в секундах). Пример: 10
+    };
+}
 
+$(document).ready(()=> {
+    $('.start').click(startHandler);
+});
 
+async function startHandler() {
+    let data = getData();
 
+    try {
+        if (!data) throw new Error('Ошибка в получении data.');
+        if (!data.message || !data.message.length) throw new Error('Поле message обязательно.');
+        if (!data.token) throw new Error('Поле token обязательно.');
+        if (!data.groupsUrl || !data.groupsUrl.length) throw new Error('В поле groupsUrl нужна минимум одна группа.');
+    } catch (error) {
+        return alert(error);
+    }
 
+    let vk = new VkController(data.token);
+    let antiCaptcha = new AntiCaptcha(data.clientKey);
+
+    appendToLog('Рассылка началась.');
+
+    let intervalId = setInterval(()=> {
+        for (let groupUrl of data.groupsUrl) {
+            let message = data.message;
+            let payload = { attachments: data.attachments };
+
+            let postCallback = async (error, response)=> {
+                if (error.error_code === 14) { // Если капча
+                    if (!antiCaptcha.clientKey) throw new Error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
+
+                    let captchaKey = await antiCaptcha.resolveCaptcha(error.captcha_img);
+
+                    if (!captchaKey) throw new Error('Ошибка при решении капчи.');
+
+                    payload.captcha_sid = error.captcha_sid;
+                    payload.captcha_key = captchaKey;
+
+                    // Рекурсирвно отправляем еще одну попытку отправки сообщения уже с капчей
+                    return vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
+                } else {
+                    throw new Error(error);
+                }
+
+                appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
+
+                console.log('Делаем искуственную задерку в 1 секунду...');
+                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 1000) });
+                console.log('Готово.');
+            }
+
+            vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
+        }
+    }, data.interval);
+
+    $('.start')
+        .unbind('click', startHandler)
+        .removeClass('start')
+        .addClass('stop')
+        .attr('intId', intervalId)
+        .html('Остановить')
+        .click(stopHandler);
+}
+
+function stopHandler() {
+    appendToLog('Рассылка закончилась.');
+
+    clearInterval($('.stop').attr('intId'));
+
+    $('.stop')
+        .unbind('click', stopHandler)
+        .removeClass('stop')
+        .addClass('start')
+        .attr('intId', null)
+        .html('Начать')
+        .click(startHandler);
+}
+
+function appendToLog(message) {
+    $('#log').val($('#log').val() + message + '\n');
+    console.log(message);
+}
