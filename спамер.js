@@ -278,6 +278,10 @@ function appendToLog(message) {
     $('#log').val($('#log').val() + message + '\n');
     console.log(message);
 }
+function сlear(){
+	localStorage.clear();
+	window.location.reload();
+}
 function save(){
 	localStorage.setItem('tokenS', document.getElementById('token').value); 
 	localStorage.setItem('messageS', document.getElementById('message').value); 
