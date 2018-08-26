@@ -215,14 +215,14 @@ async function startHandler() {
 
     appendToLog('Рассылка началась.');
 
-    let intervalId = setInterval(()=> {
+    let intervalId = setInterval(async ()=> {
         for (let groupUrl of data.groupsUrl) {
             let message = data.message;
             let payload = { attachments: data.attachments };
 
             let postCallback = async (error, response)=> {
                 if (error) {
-                    if (error.error_code === 14) { // Если капча
+                    if (error.error.error_code === 14) { // Если капча
                         if (!antiCaptcha.clientKey) throw new Error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
 
                         let captchaKey = await antiCaptcha.resolveCaptcha(error.captcha_img);
@@ -241,13 +241,13 @@ async function startHandler() {
                 }
 
                 appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
-
-                console.log('Делаем искуственную задерку в 1 секунду...');
-                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 3000) });
-                console.log('Готово.');
             }
 
             vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
+
+            console.log('Делаем искуственную задерку в 1 секунду...');
+            await new Promise((resolve, reject)=> { setTimeout(()=> { resolve() }, 5000) });
+            console.log('Готово.');
         }
     }, data.interval);
 
@@ -278,22 +278,3 @@ function appendToLog(message) {
     $('#log').val($('#log').val() + message + '\n');
     console.log(message);
 }
-function сlear(){
-	localStorage.clear();
-	window.location.reload();
-}
-function save(){
-	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('messageS', document.getElementById('message').value); 
-	localStorage.setItem('intervalS', document.getElementById('interval').value); 
-	localStorage.setItem('attachmentsS', document.getElementById('attachments').value); 
-	localStorage.setItem('clientKeyS', document.getElementById('clientKey').value);
-	localStorage.setItem('groupsS', document.getElementById('groups').value);
-}
-
-document.getElementById('token').value = localStorage.getItem('tokenS');
-document.getElementById('message').value = localStorage.getItem('messageS');
-document.getElementById('attachments').value = localStorage.getItem('attachmentsS');
-document.getElementById('clientKey').value = localStorage.getItem('clientKeyS');
-document.getElementById('interval').value = localStorage.getItem('intervalS')
-document.getElementById('groups').value = localStorage.getItem('groupsS')
