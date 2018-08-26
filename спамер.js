@@ -239,8 +239,8 @@ async function startHandler() {
 
                 appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
 
-                console.log('Делаем искуственную задерку в 1 секунду...');
-                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 1000) });
+                console.log('Делаем искуственную задерку в 3 секунды...');
+                await new Promise((resolve, reject)=> { setTimeout(()=> resolve(), 3000) });
                 console.log('Готово.');
             }
 
