@@ -234,7 +234,8 @@ async function startHandler() {
                     // Рекурсирвно отправляем еще одну попытку отправки сообщения уже с капчей
                     return vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
                 } else {
-                    throw new Error(error);
+                    console.error(error); 
+throw new Error('Ошибка от VK');
                 }
 
                 appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
