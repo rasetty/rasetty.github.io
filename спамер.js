@@ -170,7 +170,7 @@ class VkWallController {
 
             success: (res)=> {
                 // Если ошибка, то возвращаем её первым аргументом.
-                if (res.error) return callback(res);
+                if (res.error) return callback(res.error);
 
                 // Вытаскиваем ID группы из ответа.
                 let groupId = res.response[0].id;
