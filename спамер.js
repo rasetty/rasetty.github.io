@@ -4,14 +4,24 @@ class AntiCaptcha {
     constructor(clientKey) {
         this.clientKey = clientKey;
         this.corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        this.anticaptchaApiUrl = 'https://api.anti-captcha.com/';
     }
 
-    createTask(captchaUrl, callback) {
-        this.getBase64FromUrl(captchaUrl, (error, captchaBase64)=> {
-            if (error) throw new Error(error);
+    async createTask(captchaUrl) {
+        const __METHOD_NAME = 'createTask';
 
+        let captchaBase64;
+
+        try {
+            captchaBase64 = await this.getBase64FromUrl(captchaUrl);
+        } catch(error) {
+            console.error(error);
+            return false;
+        }
+
+        return await new Promise((resolve, reject)=> {
             $.ajax({
-                url: 'https://api.anti-captcha.com/createTask',
+                url: this.anticaptchaApiUrl + __METHOD_NAME,
                 method: 'POST',
                 contentType: 'application/json; charset=utf-8',
 
@@ -28,73 +38,76 @@ class AntiCaptcha {
                     }
                 }),
 
-                success: callback
+                success: resolve
             });
         });
     }
 
-    getTaskResult(taskId, callback) {
-        $.ajax({
-            url: 'https://api.anti-captcha.com/getTaskResult',
-            method: 'POST',
-            contentType: 'application/json; charset=utf-8',
+    async getTaskResult(taskId) {
+        const __METHOD_NAME = 'getTaskResult';
 
-            data: JSON.stringify({
-                clientKey: this.clientKey,
-                taskId: taskId
-            }),
+        if (!taskId || typeof taskId !== 'number') {
+            console.error('taskId: ', taskId);
+            throw new Error('Аргумент taskId обязателен и должен быть числом.');
+        }
 
-            success: callback
+        return await new Promise((resolve, reject)=> {
+            $.ajax({
+                url: this.anticaptchaApiUrl + __METHOD_NAME,
+                method: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ clientKey: this.clientKey, taskId }),
+                success: resolve
+            });
         });
     }
 
     async resolveCaptcha(captchaUrl) {
-        return await new Promise((resolve, reject)=> {
-            this.createTask(captchaUrl, (response)=> {
-                if (response.errorId !== 0) {
-                    console.error(response);
-                    throw new Error('Ошибка в создании таска для капчи ' + captchaUrl);
-                }
+        if (!captchaUrl || typeof captchaUrl !== 'string') {
+            console.error('captchaUrl: ', captchaUrl);
+            throw new Error('Аргумент captchaUrl обязателен и должен быть строкой.');
+        }
 
-                let intervalId = setInterval(()=> {
-                    this.getTaskResult(response.taskId, (response)=> {
-                        if (response.status === 'ready') {
-                            clearInterval(intervalId);
-                            resolve(response.solution.text);
-                        }
-                    });
-                }, 2000);
-            })
-        });
+        let getTaskResult;
+        let createTaskResult = await this.createTask(captchaUrl);
+
+        if (createTaskResult.errorId !== 0) {
+            console.error('createTaskResult: ', createTaskResult);
+            throw new Error('Ошибка в создании таска антикапчи');
+        }
+
+        do {
+            getTaskResult = await this.getTaskResult(createTaskResult.taskId);
+        } while (getTaskResult.status === 'processing');
+
+        return getTaskResult.solution.text;
     }
 
-    getBase64FromUrl(captchaUrl, callback) {
-        if (!captchaUrl || typeof captchaUrl !== 'string') callback(new Error('Аргумент captchaUrl обязателен и должен быть строкой.'));
+    async getBase64FromUrl(captchaUrl) {
+        return await new Promise((resolve, reject)=> {
+            let captchaImg = new Image();
+            captchaImg.crossOrigin = 'anonymous';
+            captchaImg.src = this.corsProxy + captchaUrl;
 
-        let captchaImg = new Image();
-        captchaImg.crossOrigin = 'anonymous';
-        captchaImg.src = this.corsProxy + captchaUrl;
+            captchaImg.onload = () => {
+                let canvas = document.createElement('canvas');
+                canvas.width = captchaImg.width;
+                canvas.height = captchaImg.height;
 
-        captchaImg.onload = () => {
-            let canvas = document.createElement('canvas');
-            canvas.width = captchaImg.width;
-            canvas.height = captchaImg.height;
+                let ctx = canvas.getContext('2d');
+                ctx.drawImage(captchaImg, 0, 0);
 
-            let ctx = canvas.getContext('2d');
-            ctx.drawImage(captchaImg, 0, 0);
+                let base64 = canvas.toDataURL('image/jpeg');
 
-            let base64 = canvas.toDataURL('image/jpeg');
+                if (!base64) throw new Error('Ошибка в получении base64');
 
-            let error = null;
+                resolve(base64);
+            };
 
-            if (!base64) error = new Error('Ошибка в получении base64');
-
-            callback(error, base64);
-        };
-
-        captchaImg.onerror = () => {
-            callback(new Error('Ошибка в загрузке изображения капчи по URL ' + captchaUrl));
-        };
+            captchaImg.onerror = () => {
+                throw new Error('Ошибка в загрузке изображения капчи по URL ' + captchaUrl);
+            };
+        });
     }
 }
 
@@ -124,9 +137,9 @@ class VkWallController {
         this.controllerOptions.apiUrl = this.controllerOptions.apiUrl + this.controllerOptions.methodClass + '.';
     }
 
-    post(message = '', target, _payload = {}, callback) {
-        let methodName = 'post'; // Название метода из VK.
-        let url = this.controllerOptions.apiUrl + methodName; // Формируем URL, на который пойдёт запрос.
+    async post(message = '', target, _payload = {}) {
+        const __METHOD_NAME = 'post'; // Название метода из VK.
+        let url = this.controllerOptions.apiUrl + __METHOD_NAME; // Формируем URL, на который пойдёт запрос.
 
         // Создаём payload, который будет отправлен с запросом.
         let payload = {
@@ -144,40 +157,42 @@ class VkWallController {
         }
 
         // Отправляем запрос.
-        $.ajax({
-            url,
-            dataType: 'jsonp',
-            data: $.param(payload),
-
-            success: (res)=> {
-                // Если ошибка, то возвращаем её первым аргументом.
-                if (res.error) return callback(res);
-
-                // Если ошибки нет, то возвращаем ответ вторым аргументом.
-                callback(null, res.response);
-            }
+        return await new Promise((resolve, reject)=> {
+            $.ajax({
+                url,
+                dataType: 'jsonp',
+                data: $.param(payload),
+                success: resolve
+            });
         });
     }
 
-    postGroupByUrl(message = '', groupUrl, _payload = {}, callback) {
+    async postGroupByUrl(message = '', groupUrl, _payload = {}) {
         let groupShortName = groupUrl.match(/https?:\/\/vk\.com\/([\w]+)/)[1];
 
         // Узнаём id группы по короткому имени.
-        $.ajax({
-            url: 'https://api.vk.com/method/groups.getById',
-            dataType: 'jsonp',
-            data: { group_id: groupShortName, access_token: this.controllerOptions.token, v: this.controllerOptions.v },
+        return await new Promise(async (resolve, reject)=> {
+            $.ajax({
+                url: 'https://api.vk.com/method/groups.getById',
+                dataType: 'jsonp',
+                data: { group_id: groupShortName, access_token: this.controllerOptions.token, v: this.controllerOptions.v },
 
-            success: (res)=> {
-                // Если ошибка, то возвращаем её первым аргументом.
-                if (res.error) return callback(res.error);
+                success: async (res)=> {
+                    // Если ошибка, то возвращаем её первым аргументом.
+                    if (res.error) {
+                        console.error(res.error);
+                        return false;
+                    }
 
-                // Вытаскиваем ID группы из ответа.
-                let groupId = res.response[0].id;
+                    // Вытаскиваем ID группы из ответа.
+                    let groupId = res.response[0].id;
 
-                // Постим сообщение из уже готового метода.
-                this.post(message, -groupId, _payload, callback);
-            }
+                    // Постим сообщение из уже готового метода.
+                    let postResult = await this.post(message, -groupId, _payload);
+
+                    resolve(postResult);
+                }
+            });
         });
     }
 }
@@ -210,20 +225,38 @@ async function startHandler() {
         return alert(error);
     }
 
-    let vk = new VkController(data.token);
-    let antiCaptcha = new AntiCaptcha(data.clientKey);
+    $('.start')
+        .unbind('click', startHandler)
+        .removeClass('start')
+        .addClass('stop')
+        .html('Остановить')
+        .click(stopHandler);
 
     appendToLog('Рассылка началась.');
 
-    let intervalId = setInterval(async ()=> {
+    let vk = new VkController(data.token);
+    let antiCaptcha = new AntiCaptcha(data.clientKey);
+
+    while ($('.stop').length) {
         for (let groupUrl of data.groupsUrl) {
+            if (!$('.stop').length) break;
+
             let message = data.message;
             let payload = { attachments: data.attachments };
 
-            let postCallback = async (error, response)=> {
-                if (error) {
-                    if (error.error.error_code === 14) { // Если капча
-                        if (!antiCaptcha.clientKey) throw new Error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
+            let postResult = await vk.wall.postGroupByUrl(message, groupUrl, payload);
+
+            if (postResult.error) {
+                let error = postResult.error;
+
+                switch (error.error_code) {
+                    case 14:
+                        if (!antiCaptcha.clientKey) { // Еcли антикапчи нет, то пропускаем итерацию.
+                            console.error('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
+                            appendToLog('Нужно ввести капчу, но ключ от антикапчи не обнаружен.');
+                            await pause(2000);
+                            continue;
+                        }
 
                         let captchaKey = await antiCaptcha.resolveCaptcha(error.captcha_img);
 
@@ -232,38 +265,24 @@ async function startHandler() {
                         payload.captcha_sid = error.captcha_sid;
                         payload.captcha_key = captchaKey;
 
-                        // Рекурсирвно отправляем еще одну попытку отправки сообщения уже с капчей
-                        return vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
-                    } else {
-                        console.error(error);
-                        throw new Error('Ошибка от VK');
-                    }
-                }
+                        await vk.wall.postGroupByUrl(message, groupUrl, payload);
 
-                appendToLog('📧 Сообщение успешно доставлено в группу ' + groupUrl);
+                        break;
+                    default:
+                        console.error(postResult);
+                }
             }
 
-            vk.wall.postGroupByUrl(message, groupUrl, payload, postCallback);
-
-            console.log('Делаем искуственную задерку в 1 секунду...');
-            await new Promise((resolve, reject)=> { setTimeout(()=> { resolve() }, 5000) });
-            console.log('Готово.');
+            await pause(2000);
         }
-    }, data.interval);
 
-    $('.start')
-        .unbind('click', startHandler)
-        .removeClass('start')
-        .addClass('stop')
-        .attr('intId', intervalId)
-        .html('Остановить')
-        .click(stopHandler);
+        // Задержка между повторами цикла отправок
+        await new Promise((resolve, reject)=> { setTimeout(()=> { resolve() }, data.interval) });
+    }
 }
 
 function stopHandler() {
     appendToLog('Рассылка закончилась.');
-
-    clearInterval($('.stop').attr('intId'));
 
     $('.stop')
         .unbind('click', stopHandler)
@@ -278,22 +297,9 @@ function appendToLog(message) {
     $('#log').val($('#log').val() + message + '\n');
     console.log(message);
 }
-function сlear(){
-	localStorage.clear();
-	window.location.reload();
-}
-function save(){
-	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('messageS', document.getElementById('message').value); 
-	localStorage.setItem('intervalS', document.getElementById('interval').value); 
-	localStorage.setItem('attachmentsS', document.getElementById('attachments').value); 
-	localStorage.setItem('clientKeyS', document.getElementById('clientKey').value);
-	localStorage.setItem('groupsS', document.getElementById('groups').value);
-}
 
-document.getElementById('token').value = localStorage.getItem('tokenS');
-document.getElementById('message').value = localStorage.getItem('messageS');
-document.getElementById('attachments').value = localStorage.getItem('attachmentsS');
-document.getElementById('clientKey').value = localStorage.getItem('clientKeyS');
-document.getElementById('interval').value = localStorage.getItem('intervalS')
-document.getElementById('groups').value = localStorage.getItem('groupsS')
+async function pause(ms) {
+    console.log(`Делаем искуственную задерку в ${ms / 1000} секунды...`);
+    await new Promise((resolve, reject)=> { setTimeout(()=> { resolve() }, ms) });
+    console.log('Готово.');
+}
