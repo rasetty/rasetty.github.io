@@ -303,3 +303,22 @@ async function pause(ms) {
     await new Promise((resolve, reject)=> { setTimeout(()=> { resolve() }, ms) });
     console.log('Готово.');
 }
+function сlear(){
+	localStorage.clear();
+	window.location.reload();
+}
+function save(){
+	localStorage.setItem('tokenS', document.getElementById('token').value); 
+	localStorage.setItem('messageS', document.getElementById('message').value); 
+	localStorage.setItem('intervalS', document.getElementById('interval').value); 
+	localStorage.setItem('attachmentsS', document.getElementById('attachments').value); 
+	localStorage.setItem('clientKeyS', document.getElementById('clientKey').value);
+	localStorage.setItem('groupsS', document.getElementById('groups').value);
+}
+
+document.getElementById('token').value = localStorage.getItem('tokenS');
+document.getElementById('message').value = localStorage.getItem('messageS');
+document.getElementById('attachments').value = localStorage.getItem('attachmentsS');
+document.getElementById('clientKey').value = localStorage.getItem('clientKeyS');
+document.getElementById('interval').value = localStorage.getItem('intervalS')
+document.getElementById('groups').value = localStorage.getItem('groupsS')
