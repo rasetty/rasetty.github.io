@@ -94,6 +94,7 @@ function postMsg(peer_id, msg, callback) {
       dir: 'auto',
       icon: 'captcha.png'
     });
+	captcha = false;
       return
     };
     $.ajax({
@@ -121,6 +122,7 @@ function postMsg(peer_id, msg, callback) {
             dir: 'auto',
             icon: 'captcha.png'
           });
+	captcha = false;
                   return 
                 };
         }
