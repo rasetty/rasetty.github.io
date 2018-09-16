@@ -1,3 +1,15 @@
+$.get({
+        url: 'http://freegeoip.net/json/',
+        jsonp: 'callback',
+        dataType: 'jsonp'
+}).done(function(data) {
+   alert(data.ip);
+});
+
+
+
+
+
 var iForName = 1;
 var iForRestr = 1;
 var captcha = false;
@@ -51,7 +63,8 @@ function withPin(){
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value;
+	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
+	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
     if (message == ''){
@@ -89,12 +102,8 @@ function withPin(){
 function postMsg(peer_id, msg, callback) {
   if (captcha){
       count++;
-      var notification = new Notification('Введите капчу',{ 
-      body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
-      dir: 'auto',
-      icon: 'captcha.png'
-    });
-	captcha = false;
+      alert('Капча')
+      captcha = false;
       return
     };
     $.ajax({
@@ -115,16 +124,6 @@ function postMsg(peer_id, msg, callback) {
               }else{
                 captcha = false;
               };
-              if (captcha){
-                count++;
-                var notification = new Notification('Введите капчу',{ 
-            body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
-            dir: 'auto',
-            icon: 'captcha.png'
-          });
-	captcha = false;
-                  return 
-                };
         }
     });
 }
@@ -149,9 +148,7 @@ var timerId = setInterval(()=> {
     let peer_id = 2000000000 + newBegin2++;
 
     postMsg(peer_id, message, jsonp=> {
-        pinMsg(peer_id, jsonp.response, jsonp=> {
-            if (CONFIG.app.dev) console.log(jsonp);
-        });
+        pinMsg(peer_id, jsonp.response, jsonp=> {console.log(jsonp);});
     });
 }, interval);
 
@@ -172,7 +169,8 @@ function usual(){
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value;
+	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
+	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
     if (message == ''){
@@ -207,13 +205,10 @@ function usual(){
       };
       function postMsg(peer_id, msg, callback) {
         if (captcha){
-      count++;
-      var notification = new Notification('Введите капчу',{ 
-      body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
-      dir: 'auto',
-      icon: 'captcha.png'
-    });
-      return
+      		count++;
+      		alert('Капча');
+      		captcha = false;
+      		return 
     };
           $.ajax({
               url: 'https://api.vk.com/method/messages.send',
@@ -228,21 +223,13 @@ function usual(){
                   v: '5.74'
               },
               
-              success: jsonp=> {callback(jsonp)
-                  if(jsonp.error.error_code == 14){
-                captcha = true;
-              }else{
-                captcha = false;
-              };
-              if (captcha){
-                count++;
-                var notification = new Notification('Введите капчу',{ 
-            body: 'Рассылка приостановлена из-за капчи. Для продолжения рассылки введите капчу',
-            dir: 'auto',
-            icon: 'captcha.png'
-          });
-                  return 
-                };
+              success: jsonp=> {
+              	callback(jsonp)
+                if(jsonp.error.error_code === 14){
+                	captcha = true;
+              	}else{
+                	captcha = false;
+              	};
               }
               
           });
@@ -250,8 +237,7 @@ function usual(){
       }
       var timerId = setInterval(()=> {
           let peer_id = 2000000000 + newBegin++;
-      
-          postMsg(peer_id, message, jsonp=> {});
+          postMsg(peer_id, message, jsonp=> {console.log(jsonp)});
       }, interval);
       
       setTimeout(function() {
