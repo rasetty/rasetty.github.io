@@ -1,16 +1,4 @@
-$.get({
-        url: 'http://freegeoip.net/json/',
-        jsonp: 'callback',
-        dataType: 'jsonp'
-}).done(function(data) {
-   alert(data.ip);
-});
-
-
-
-
-
-var iForName = 1;
+var iForName = 0;
 var iForRestr = 1;
 var captcha = false;
 function create(){
@@ -19,7 +7,7 @@ function create(){
 	} else {
 		iForRestr++;
 	};
-    var name = 'link' + iForName; 
+    var name = 'link' + iForName++; 
 	var em = document.createElement('em');
 	em.innerHTML = 'Ссылка на прикрепляемый файл';
 	var input = document.createElement('input');
@@ -59,12 +47,34 @@ function start(){
 
 function withPin(){
 	message = document.getElementById('text').value;
-  count = document.getElementById('count').value;
+    count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
-	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
+	if(iForName == 1){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value;
+	}else if(iForName == 2){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value;
+	}else if(iForName == 3){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value;
+	}else if(iForName == 4){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value;
+	}else if(iForName == 5){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value +
+		 ',' + document.getElementById('link5').value;
+	}else if(iForName == 6){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value;
+	}else if(iForName == 7){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value;
+	}else if(iForName == 8){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value;
+	}else if(iForName == 9){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
+	}
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
     if (message == ''){
@@ -169,8 +179,30 @@ function usual(){
 	begin = document.getElementById('begin').value;
 	interval = document.getElementById('interval').value * 1000;
 	token = document.getElementById('token').value;
-	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
-	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
+	if(iForName == 1){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value;
+	}else if(iForName == 2){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value;
+	}else if(iForName == 3){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value;
+	}else if(iForName == 4){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value;
+	}else if(iForName == 5){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value +
+		 ',' + document.getElementById('link5').value;
+	}else if(iForName == 6){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value;
+	}else if(iForName == 7){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value;
+	}else if(iForName == 8){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value;
+	}else if(iForName == 9){
+		link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
+		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
+	}
 	N  = document.getElementById('N').value;
 	countN = document.getElementById('countN').value;
     if (message == ''){
