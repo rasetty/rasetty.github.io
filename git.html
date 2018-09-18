@@ -1,270 +1,81 @@
-$.get({
-        url: 'http://freegeoip.net/json/',
-        jsonp: 'callback',
-        dataType: 'jsonp'
-}).done(function(data) {
-   alert(data.ip);
-});
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Send</title>
+    <meta charset="utf-8">
+    <link rel = "stylesheet" type = "text/css" href = "message_send.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+</head>
+<body> 
 
+<div id = "all">
 
+      <h3 id = "title">Сайт для рассылки ваших сообщений</h3>
+      <div id = "content">
 
+       <div class = "textarea">
+          <label for = "text">Введите нужный для отправки текст</label>
+          <textarea id = "text" required autocomplete = 'on'></textarea>
+       </div>
 
+       <div class = "data" id = "js">
 
-var iForName = 1;
-var iForRestr = 1;
-var captcha = false;
-function create(){
-	if (iForRestr == 10) {
-		return
-	} else {
-		iForRestr++;
-	};
-    var name = 'link' + iForName; 
-	var em = document.createElement('em');
-	em.innerHTML = 'Ссылка на прикрепляемый файл';
-	var input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.setAttribute('class', 'input');
-    input.setAttribute('id', name);
-    var place = document.getElementById('js');
-    place.appendChild(em);
-    place.appendChild(input);
-    iForName++;
-}
-var message,
-    token,
-    count,
-    interval,
-    begin,
-    link,
-    N,
-    countN;
+         <label for = "token">Введите токен нужной страницы</label>
+         <input type = "text" id = "token" class = "input" required>
 
-function start(){
-  if (!("Notification" in window)) {
-    alert('Ваш браузер не поддерживает HTML Notifications, его необходимо обновить.');
-  }
-  else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-    if (!(permission === "granted")) {
-      alert('Вы запретили показывать уведомления'); 
-    }
-  });      
-  }
-	if ($("#myCheckbox").prop("checked")){
-		withPin();
-	} else {
-	usual();
-}
+         <label for = "interval">Интервал</label>
+         <input type = "number" id = "interval" class = "input" required>
 
-function withPin(){
-	message = document.getElementById('text').value;
-  count = document.getElementById('count').value;
-	begin = document.getElementById('begin').value;
-	interval = document.getElementById('interval').value * 1000;
-	token = document.getElementById('token').value;
-	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
-	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
-	N  = document.getElementById('N').value;
-	countN = document.getElementById('countN').value;
-    if (message == ''){
-    	alert('Не введен текст рассылки');
-    	return
-    };
-    if (token == ''){
-    	alert('Не введен токен');
-    	return
-    };
-    if (interval == ''){
-    	alert('Не указан интервал');
-    	return
-    };
-    if (count == ''){
-    	alert('Не указано во сколько бесед слать');
-    	return
-    };
-    if (begin == ''){
-    	alert('Не указано начало рассылки');
-    	return
-    };
-    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
-    interval + 0;
-    function pin(){
+         <label for = "count" >Количество бесед, в которые слать</label>
+         <input type="number" id = "count" class = "input" required>
 
-	var newBegin2 = begin;
+         <label for = "begin">С какой беседы начать рассылку</label>
+         <input type = "number" id = "begin" class = "input" required>
 
-    const CONFIG = {
-    app: {
-        dev: true
-    },
-    access_token: token
-};
-function postMsg(peer_id, msg, callback) {
-  if (captcha){
-      count++;
-      alert('Капча')
-      captcha = false;
-      return
-    };
-    $.ajax({
-        url: 'https://api.vk.com/method/messages.send',
-        jsonp: 'callback',
-        dataType: 'jsonp',
-        data: {
-            access_token: CONFIG.access_token,
-            peer_id: peer_id,
-            message: msg,
-            attachment: link,
-            v: '5.74'
-        },
+         <label for = "N">Рассылать каджые N минут, введите N</label>
+         <input type="number" id = "N" class = "input" value = '30' min = "30" required>
 
-        success: jsonp=> {callback(jsonp)
-            if(jsonp.error.error_code == 14){
-                captcha = true;
-              }else{
-                captcha = false;
-              };
-        }
-    });
-}
+         <label for = "countN">Сколько сделать рассылок</label>
+         <input type = "number" id = "countN" class = "input" value = '1' min = "1" required>
+        
 
-function pinMsg(peer_id, msgId, callback) {
-    $.ajax({
-        url: 'https://api.vk.com/method/messages.pin',
-        jsonp: 'callback',
-        dataType: 'jsonp',
-        data: {
-            access_token: CONFIG.access_token,
-            peer_id: peer_id,
-            message_id: msgId,
-            v: '5.74'
-        },
+         <div style = "display: flex; padding-left: 150px; align-items: flex-end;">
+          <div style = "display: flex; flex-direction: column;">
+           <label for = "link"> Ссылка на прикрепляемый файл</br>
+           (Ссылка типа wall246598308_5088)</label>
+           <input type = "text" id = "link" class = "input" required>
+          </div>
+          <button id = "create" class = "btn" onclick = "create()">Еще приложение</button>
+         </div>
 
-        success: jsonp=> callback(jsonp)
-    });
-}
+        </div> 
+      </div>
 
-var timerId = setInterval(()=> {
-    let peer_id = 2000000000 + newBegin2++;
+       <div class = "btn" id = "btns">
 
-    postMsg(peer_id, message, jsonp=> {
-        pinMsg(peer_id, jsonp.response, jsonp=> {console.log(jsonp);});
-    });
-}, interval);
+        <div style = "padding-right: 60px;">
 
-setTimeout(function() {
-    clearInterval(timerId);
-}, interval * count);}
+          <label for = "myCheckbox" style = "font-size: 22px; padding: 13px;">Закреплять сообщения</label>
+          <input type = "checkbox" id = "myCheckbox" style = "transform: scale(3.5,3.5);">
 
-var timer = setInterval(pin, N * 60 * 1000); 
-setTimeout(function(){ 
-clearInterval(timer); 
-}, N * 60 * 1000 * (countN - 1));
-pin();
-}
+        </div>
 
-function usual(){
-    message = document.getElementById('text').value;
-    count = document.getElementById('count').value;
-	begin = document.getElementById('begin').value;
-	interval = document.getElementById('interval').value * 1000;
-	token = document.getElementById('token').value;
-	link = document.getElementById('link').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value
-	 + ',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
-	N  = document.getElementById('N').value;
-	countN = document.getElementById('countN').value;
-    if (message == ''){
-    	alert('Не введен текст рассылки');
-    	return
-    };
-    if (token == ''){
-    	alert('Не введен токен');
-    	return
-    };
-    if (interval == ''){
-    	alert('Не указан интервал');
-    	return
-    };
-    if (count == ''){
-    	alert('Не указано во сколько бесед слать');
-    	return
-    };
-    if (begin == ''){
-    	alert('Не указано начало рассылки');
-    	return
-    };
-    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
-    interval + 0;
-   function baz(){
-      var newBegin = begin;
-          const CONFIG = {
-          app: {
-              dev: true
-          },
-          access_token: token
-      };
-      function postMsg(peer_id, msg, callback) {
-        if (captcha){
-      		count++;
-      		alert('Капча');
-      		captcha = false;
-      		return 
-    };
-          $.ajax({
-              url: 'https://api.vk.com/method/messages.send',
-              jsonp: 'callback',
-              dataType: 'jsonp',
-              data: {
-                  access_token: CONFIG.access_token,
-                  peer_id: peer_id,
-                  message: msg,
-                  attachment: link,
-                   
-                  v: '5.74'
-              },
-              
-              success: jsonp=> {
-              	callback(jsonp)
-                if(jsonp.error.error_code === 14){
-                	captcha = true;
-              	}else{
-                	captcha = false;
-              	};
-              }
-              
-          });
+        <button id = "start" class = "btn button"  onclick = "start()">Начать рассылку</button>
+        <button id = "saveDate" class = "btn button"  onclick = "save()">Сохранить введенные данные</button>
+        <button id = "clearDate" class = "btn button"  onclick = "сlear()">Очистить сохранение</button>
 
-      }
-      var timerId = setInterval(()=> {
-          let peer_id = 2000000000 + newBegin++;
-          postMsg(peer_id, message, jsonp=> {console.log(jsonp)});
-      }, interval);
-      
-      setTimeout(function() {
-          clearInterval(timerId);
-      }, interval * count);}
-      var timer = setInterval(baz, N * 60 * 1000); 
-      setTimeout(function(){ 
-      clearInterval(timer); 
-      }, N * 60 * 1000 * (countN - 1));
-      baz();
-}};  
-function сlear(){
-	localStorage.clear();
-	window.location.reload();
-}
-function save(){
-	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('textS', document.getElementById('text').value); 
-	localStorage.setItem('intervalS', document.getElementById('interval').value); 
-	localStorage.setItem('linkS', document.getElementById('link').value); 
-	localStorage.setItem('countS', document.getElementById('count').value);
-	localStorage.setItem('beginS', document.getElementById('begin').value);  
-}
+      </div>
 
-document.getElementById('token').value = localStorage.getItem('tokenS');
-document.getElementById('text').value = localStorage.getItem('textS');
-document.getElementById('link').value = localStorage.getItem('linkS');
-document.getElementById('count').value = localStorage.getItem('countS');
-document.getElementById('begin').value = localStorage.getItem('beginS');
-document.getElementById('interval').value = localStorage.getItem('intervalS')
+      <h5 style = "padding-left: 19px;"><a href = "http://all-for-vkontakte.ru/catalog/access-token-vkontakte" target = "_blank">Инструкция</a> по получению токена</h5>
+
+      <div id = "descr">
+        <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/semensolodovnikov" target = "_blank">здесь</a></h5>
+        <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
+      </div>
+
+   </div>
+   <script src ="message_send.js"></script>
+
+</body>
+</html>
