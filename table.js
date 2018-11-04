@@ -35,7 +35,7 @@ new Vue ({
     },
     password() {
       let toReturn = true
-      if (this.check == 'ghbdtn') 
+      if (this.check == 'бимба') 
         return toReturn
       
     }
