@@ -35,7 +35,7 @@ new Vue ({
     },
     password() {
       let toReturn = true
-      if (this.check == 'че умный штоле?') 
+      if (this.check == '') 
         return toReturn
       
     }
