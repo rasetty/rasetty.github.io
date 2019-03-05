@@ -174,11 +174,12 @@ pin();
 }
 
 function usual(){
+    link0 = document.getElementById('link').value;
     message = document.getElementById('text').value;
     count = document.getElementById('count').value;
-	begin = document.getElementById('begin').value;
-	interval = document.getElementById('interval').value * 1000;
-	token = document.getElementById('token').value;
+	  begin = document.getElementById('begin').value;
+	  interval = document.getElementById('interval').value * 1000;
+	  token = document.getElementById('token').value;
 	if(iForName == 1){
 		link = document.getElementById('link').value + ',' + document.getElementById('link1').value;
 	}else if(iForName == 2){
@@ -250,7 +251,7 @@ function usual(){
                   access_token: CONFIG.access_token,
                   peer_id: peer_id,
                   message: msg,
-                  attachment: link,
+                  attachment: link0,
                    
                   v: '5.74'
               },
