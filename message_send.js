@@ -251,6 +251,7 @@ function usual(){
                   access_token: CONFIG.access_token,
                   peer_id: peer_id,
                   message: msg,
+		  random_id: 1,
                   attachment: link0,
                    
                   v: '5.74'
