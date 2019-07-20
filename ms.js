@@ -143,6 +143,11 @@ function save(){
 	localStorage.setItem('countS', document.getElementById('count').value);
 	localStorage.setItem('beginS', document.getElementById('begin').value);  
 }
+//уведомление о сохранении
+function throw_message() {
+        $('#save_message').html('Сохранено');
+        $("#save_box").fadeIn(500).delay(3000).fadeOut(500);
+    }
 
 //восстановление сохраненных данных
 document.getElementById('token').value = localStorage.getItem('tokenS');
