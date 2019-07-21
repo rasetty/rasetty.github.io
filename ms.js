@@ -152,11 +152,13 @@ function сlear(){
 }
 //сохранение данных
 function save(){
-	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('textS', document.getElementById('text').value); 
-	localStorage.setItem('intervalS', document.getElementById('interval').value); 
-	localStorage.setItem('countS', document.getElementById('count').value);
-	localStorage.setItem('beginS', document.getElementById('begin').value);  
+  localStorage.setItem('tokenS', document.getElementById('token').value); 
+  localStorage.setItem('textS', document.getElementById('text').value); 
+  localStorage.setItem('intervalS', document.getElementById('interval').value); 
+  localStorage.setItem('countS', document.getElementById('count').value);
+  localStorage.setItem('beginS', document.getElementById('begin').value);
+  localStorage.setItem('NS', document.getElementById('N').value);
+  localStorage.setItem('countNS', document.getElementById('countN').value);  
 }
 //уведомление о сохранении
 function throw_message() {
@@ -169,4 +171,6 @@ document.getElementById('token').value = localStorage.getItem('tokenS');
 document.getElementById('text').value = localStorage.getItem('textS');
 document.getElementById('count').value = localStorage.getItem('countS');
 document.getElementById('begin').value = localStorage.getItem('beginS');
-document.getElementById('interval').value = localStorage.getItem('intervalS')
+document.getElementById('interval').value = localStorage.getItem('intervalS');
+document.getElementById('N').value = localStorage.getItem('NS');
+document.getElementById('countN').value = localStorage.getItem('countNS');
