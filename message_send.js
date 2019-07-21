@@ -27,7 +27,7 @@ var message,
   N,
   countN;
 
-function start(){
+//function start(){
   message = document.getElementById('text').value;
   count = document.getElementById('count').value;
   begin = document.getElementById('begin').value;
