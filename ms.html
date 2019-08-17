@@ -4,7 +4,7 @@
   <title>Message Send</title>
     <link rel = "stylesheet" type = "text/css" href = "ms.css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
 </head>
 <body> 
 
@@ -20,7 +20,7 @@
 
        <div class = "data" id = "js">
 
-         <label for = "token">Введите ключ нужной группы</label>
+         <label for = "token">Введите токен нужной страницы</label>
          <input type = "text" id = "token" class = "input" required>
 
          <label for = "interval">Интервал</label>
@@ -53,21 +53,19 @@
 
        <div class = "btn" id = "btns">
 
-        <button id = "start" class = "btn button"  onclick = "usual()">Начать рассылку</button>
-        <button id = "saveDate" class = "btn button"  onclick = "save(); throw_message()">Сохранить введенные данные</button>
+        <button id = "start" class = "btn button"  onclick = "start()">Начать рассылку</button>
+        <button id = "saveDate" class = "btn button"  onclick = "save()">Сохранить введенные данные</button>
         <button id = "clearDate" class = "btn button"  onclick = "сlear()">Очистить сохранение</button>
 
       </div>
 
-      <h5 style = "padding-left: 19px;"><a href = "https://vk.com/dev/access_token?f=2.%20Ключ%20доступа%20сообщества" target = "_blank">Инструкция</a> по получению токена</h5>
+      <h5 style = "padding-left: 19px;"><a href = "http://all-for-vkontakte.ru/catalog/access-token-vkontakte" target = "_blank">Инструкция</a> по получению токена</h5>
 
       <div id = "descr">
-        <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/rasetty" target = "_blank">здесь</a></h5>
-        <a href = "http://vk.com/rasetty" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
+        <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/semensolodovnikov" target = "_blank">здесь</a></h5>
+        <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
       </div>
-      <div id='save_box' style='display: none; background: #B2E0F9; position: fixed; width: 200px; right: 85px; top: 30px; text-align: center; border-radius: 5px;'>
-        <p id='save_message' style='padding-top: 18px; font-weight: bold; '></p>
-      </div>
+
    </div>
    
    <script src ="ms.js"></script>
