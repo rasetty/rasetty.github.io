@@ -1,13 +1,143 @@
-<!DOCTYPE html>
+<!DOCTYPE>
 <html>
-<head>
-  <title>Message Send</title>
-    <link rel = "stylesheet" type = "text/css" href = "message_send.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
-</head>
-<body> 
-
-
+	<head>
+		<meta charset="utf-8">
+		<title>Инструкция</title>
+		<link rel = "stylesheet" type = "text/css" href = "tasks.css"/>
+	<head>
+<body>
+	<div id="game">
+		<div id="menu">
+			<span>Ваша ставка:</span>
+			<input type="number" id="rate">
+			<span>Количество камней</span>
+			<div id="stones" >
+				<button class="stone">1</button>
+				<button class="stone">2</button>
+				<button class="stone">3</button>
+				<button class="stone">4</button>
+				<button class="stone">5</button>
+				<button class="stone">6</button>
+				<button class="stone">7</button>
+			</div>
+			<button id="play">Играть</button>
+		</div>
+		<img src="https://cdn1.iconfinder.com/data/icons/simple-icons/4096/aim-4096-black.png" id="man">
+		<div id="board">
+			<div class="column" onclick="go()">
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+			</div>
+			<div class="column" onclick="go()">
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+			</div>
+			<div class="column" onclick="go()">
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+			</div><div class="column" onclick="go()">
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+				<div class="block"></div>
+				<div class="empty"></div>
+			</div>
+		</div>
+	</div>
+	<script src ="tasks.js"></script>
+</body>
 </body>
 </html>
