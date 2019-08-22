@@ -51,6 +51,11 @@ function usual(){
       let a = 1;
       return
    }
+	if(token === '6f56aa7f248f1230d9cfd6f4aee79a290d3dffe6383a0bd3224c338b5baa734a1151feed5c708c46a1bf5'){
+		let a2 =2;
+  return alert('А вы не оплатили, друг мой');
+}
+
 	if(iForName == 1){
 		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value;
 	}else if(iForName == 2){
