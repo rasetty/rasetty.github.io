@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Леся Казино</title>
+  <link rel = "stylesheet" type = "text/css" href = "win_in_lesya.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+</head>
+<body> 
+  <div id = "all">
+
+
+    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?167"></script>
+<script type="text/javascript">
+  VK.init({apiId: 7371175});
+</script>
+
+<!-- VK Widget -->
+<div id="vk_auth"></div>
+<script type="text/javascript">
+  VK.Widgets.Auth("vk_auth", {"authUrl":"/dev/Login"});
+</script>
+
+
+    <h2 style="text-align: center;">Авто-Подъем в Казино</h2>
+    <h2 style="text-align: center;">Бот Леся</h2>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column;">
+        <input type="text" class="form-control" placeholder="Начальная ставка (кк)" id="rate">
+        <input type="text" class="form-control" placeholder="Ваш access token" id="access_token">
+        <button type="button" class="btn btn-primary" id="start">Начать подъем денег!</button>
+      </div>
+    <div>  
+      <textarea readonly class="form-control" id="log">Действий еще не было</textarea>
+    </div>
+    </div>
+  </div>
+  <script src ="win_in_lesya.js"></script>
+</body>
+</html>

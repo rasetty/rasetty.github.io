@@ -1,0 +1,28 @@
+#all{
+	border: 3px black solid;
+	margin: 0 auto;
+	max-width: 1060px;
+	max-height: 1600px;
+	min-height: 500px;
+	background-color: #93CEED;
+	border-radius: 13px;
+	margin-top: 14px;
+}
+#rate{
+	max-width: 200px;
+	height: 37px;
+	margin-bottom: 20px;
+}
+#access_token{
+	width: 250px;
+	height: 37px;
+	margin-bottom: 20px;
+}
+#log{
+	width: 250px;
+	height: 100px;
+	max-height: 300px;
+}
+#start{
+	width: 180px;
+}
