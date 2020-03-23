@@ -5,23 +5,15 @@
   <link rel = "stylesheet" type = "text/css" href = "win_in_lesya.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+  <script src="https://vk.com/js/api/openapi.js?167" type="text/javascript"></script>
 </head>
-<body> 
-  <div id = "all">
-
-
-    <script type="text/javascript" src="https://vk.com/js/api/openapi.js?167"></script>
-<script type="text/javascript">
-  VK.init({apiId: 7371175});
-</script>
-
-<!-- VK Widget -->
-<div id="vk_auth"></div>
-<script type="text/javascript">
-  VK.Widgets.Auth("vk_auth", {"authUrl":"/dev/Login"});
-</script>
-
-
+<body>
+  <div id="vk_auth">
+    <div id="alert">
+      <div class="alert alert-info" role="alert">Чтобы войти, авторизуйтесь.</div>
+    </div>
+  </div>
+  <div class="hid" id = "all">
     <h2 style="text-align: center;">Авто-Подъем в Казино</h2>
     <h2 style="text-align: center;">Бот Леся</h2>
     <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
