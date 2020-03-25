@@ -1,14 +1,14 @@
 #vk_auth{
 	margin: 5% auto;
 }
+body{
+  background-image: url('https://vk.vkfaces.com/856136/v856136238/141aaf/PW4RR9ODaFw.jpg');
+  background-size: 100%;
+}
 #all{
-	border: 3px black solid;
 	margin: 0 auto;
-	max-width: 1060px;
+	max-width: 1000px;
 	max-height: 1600px;
-	min-height: 500px;
-	background-color: #93CEED;
-	border-radius: 13px;
 	margin-top: 14px;
 }
 #rate{
@@ -28,6 +28,7 @@
 }
 #start{
 	width: 180px;
+	margin-bottom: 20px;
 }
 .hid{
 	display: none;
