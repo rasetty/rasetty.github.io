@@ -1,3 +1,6 @@
+@media (min-width: 1200px) {
+	body{ zoom: 150% };
+}
 #vk_auth{
 	margin: 5% auto;
 }
