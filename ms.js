@@ -51,7 +51,7 @@ function usual(){
       let a = 1;
       return
    }
-	if(token === '6f56aa7f248f1230d9cfd6f4aee79a290d3dffe6383a0bd3224c338b5baa734a1151feed5c708c46a1bf5'){
+	if(token === ''){
 		let a2 =2;
   return alert('А вы не оплатили, друг мой');
 }
