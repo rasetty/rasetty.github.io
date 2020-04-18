@@ -1,15 +1,19 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <title>Message Send</title>
-  <meta name="CatCutb7b93046f9" content="3F85201965305EF870C91FFD85BEC91AY2358" />
+  <head>
+    <title>Message Send</title>
     <link rel = "stylesheet" type = "text/css" href = "ms.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="  anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+    <script src="https://vk.com/js/api/openapi.js?167" type="text/javascript"></script>
+  </head>
 <body> 
-
-<div id = "all">
+  <div id="vk_auth">
+      <div id="alert">
+        <div class="alert alert-info" role="alert">Чтобы войти, авторизуйтесь.</div>
+      </div>
+  </div>
+  <div class="hid" id = "all">
 
       <h3 id = "title">Сайт для рассылки ваших сообщений</h3>
       <div id = "content">
@@ -21,7 +25,7 @@
 
        <div class = "data" id = "js">
 
-         <label for = "token">Введите ключ нужной группы</label>
+         <label for = "token">Введите токен нужной страницы</label>
          <input type = "text" id = "token" class = "input" required>
 
          <label for = "interval">Интервал</label>
@@ -34,19 +38,19 @@
          <input type = "number" id = "begin" class = "input" required>
 
          <label for = "N">Рассылать каджые N минут, введите N</label>
-         <input type="number" id = "N" class = "input" value = '30' min = "30" required>
+         <input type="number" id = "N" class = "input" required>
 
          <label for = "countN">Сколько сделать рассылок</label>
-         <input type = "number" id = "countN" class = "input" value = '1' min = "1" required>
+         <input type = "number" id = "countN" class = "input" min = "1" required>
         
 
-         <div style = "display: flex; padding-left: 150px; align-items: flex-end;">
-          <div style = "display: flex; flex-direction: column;">
+         <div style = "display: flex;">
+          <div>
            <label for = "link"> Ссылка на прикрепляемый файл</br>
-           (Ссылка типа wall246598308_5088)</label>
-           <input type = "text" id = "link0" class = "input" required>
+           (Ссылка типа wall246598308_5088)</label><br>
+           <input type = "text" id = "link0" class = "input">
+           <input type="submit" id = "create" class = "btn" value="Еще приложение" onclick = "create()">
           </div>
-          <button id = "create" class = "btn" onclick = "create()">Еще приложение</button>
          </div>
 
         </div> 
@@ -54,21 +58,19 @@
 
        <div class = "btn" id = "btns">
 
-        <button id = "start" class = "btn button"  onclick = "usual()">Начать рассылку</button>
-        <button id = "saveDate" class = "btn button"  onclick = "save(); throw_message()">Сохранить введенные данные</button>
+        <button id = "start" class = "btn button"  onclick = "start()">Начать рассылку</button>
+        <button id = "saveDate" class = "btn button"  onclick = "save()">Сохранить данные</button>
         <button id = "clearDate" class = "btn button"  onclick = "сlear()">Очистить сохранение</button>
 
       </div>
 
-      <h5 style = "padding-left: 19px;"><a href = "https://rasetty.github.io/instruction.html" target = "_blank">Инструкция</a> по сайту</h5>
+      <h5 style="padding-left: 19px;"><a href="https://rasetty.github.io/instruction.html" target="_blank">Инструкция</a> по сайту</h5>
 
       <div id = "descr">
-        <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/rasetty" target = "_blank">здесь</a></h5>
-        <a href = "http://vk.com/rasetty" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
+        <h5 id = "suppr">Вопрос разработчику можно задать <a href = "http://vk.com/semensolodovnikov" target = "_blank">здесь</a></h5>
+        <a href = "http://vk.com/semensolodovnikov" target = "_blank" style = "text-decoration: none;"><p id = "god">@Created by Rasetty</p></a>
       </div>
-      <div id='save_box' style='display: none; background: #B2E0F9; position: fixed; width: 200px; right: 85px; top: 30px; text-align: center; border-radius: 5px;'>
-        <p id='save_message' style='padding-top: 18px; font-weight: bold; '></p>
-      </div>
+
    </div>
    
    <script src ="ms.js"></script>
