@@ -1,6 +1,9 @@
 :root{
 	--main-color: #D5D5D5;
 }
+#vk_auth{
+	margin: 5% auto;
+}
 #all{
 	border: 3px black solid;
 	margin: 0 auto;
