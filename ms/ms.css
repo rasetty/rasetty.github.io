@@ -63,10 +63,18 @@
     padding-left: 10px;
 }
 #create{
-	padding-left: 10px;
-	margin-top: -4.5px;
+	margin-bottom: 5px;
+	background: url(media/plus.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	height: 35px;
+	width: 35px;
 }
 .button{
 	max-height: 60px;
 	margin: 1%;
+}
+#inf{
+	width: 40px;
+	transform: scale(3,3);
 }
