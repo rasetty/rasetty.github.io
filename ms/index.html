@@ -3,7 +3,7 @@
     <title>Message Send</title>
     <link rel = "stylesheet" type = "text/css" href = "ms.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="ms.png" type="image/png">
+    <link rel="shortcut icon" href="media/ms.png" type="image/png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="  anonymous">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
     <script src="https://vk.com/js/api/openapi.js?167" type="text/javascript"></script>
@@ -40,19 +40,23 @@
 
          <label for = "N">Рассылать каджые N минут, введите N</label>
          <input type="number" id = "N" class = "input" required>
+         
 
-         <label for = "countN">Сколько сделать рассылок</label>
-         <input type = "number" id = "countN" class = "input" min = "1" required>
-        
+         <div>
+          <label for = "countN">Сколько сделать рассылок</label></br>
+          <input type = "number" id = "countN" class = "input" value="0" min = "1">
+          <input type="checkbox" id="inf">
+          <label for="inf">Бесконечно</label>
+         </div>
 
-         <div style = "display: flex;">
+         
           <div>
            <label for = "link"> Ссылка на прикрепляемый файл</br>
            (Ссылка типа wall246598308_5088)</label><br>
            <input type = "text" id = "link0" class = "input">
-           <input type="submit" id = "create" class = "btn" value="Еще приложение" onclick = "create()">
+           <input type="submit" id = "create" class = "btn" value="" onclick = "create()">
           </div>
-         </div>
+         
 
         </div> 
       </div>
@@ -73,7 +77,6 @@
       </div>
 
    </div>
-   
    <script src ="ms.js"></script>
 </body>
 </html>
