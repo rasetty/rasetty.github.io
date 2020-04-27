@@ -1,13 +1,10 @@
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
     <script>
-        async function test() {
+        async function test(){
             let load = await new Promise((resolve)=>{
-                setTimeout(()=>{
-                    $("#container").load("common.html");
-                    resolve();
-                } ,5000)
-                
+                $("#container").load("common.html");
+                resolve();                
             });
             $("#all").load("ms.html");
         }
