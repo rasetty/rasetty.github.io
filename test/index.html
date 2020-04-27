@@ -2,7 +2,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
     <script>
         async function test(){
-            let load = await new Promise((resolve)=>{
+            let common = await new Promise((resolve)=>{
                 /*
                 (function sleep(ms) {
                     ms += new Date().getTime();
@@ -14,11 +14,12 @@
                     resolve();
 
                 });
-                
-                console.log(228);          
+                        
             });
-            $(function(){
-                $("#all").load("ms.html");
+            let personal = await new Promise((resolve)=>{
+                $(function(){
+                    $("#all").load("ms.html");
+                });
             });
         }
         test();
