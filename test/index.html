@@ -17,6 +17,10 @@
                         
             });
             let personal = await new Promise((resolve)=>{
+                (function sleep(ms) {
+                    ms += new Date().getTime();
+                    while (new Date() < ms){}
+                }(1000))
                 $(function(){
                     $("#all").load("ms.html");
                 });
