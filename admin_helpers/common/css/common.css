@@ -1,0 +1,154 @@
+:root{
+	--main-color: #FFF1BC;
+}
+body, html{
+	min-height: 100%;
+	position: relative;
+	padding: 0;
+	padding-bottom: 10px;
+}
+a{
+	text-decoration: none !important;
+}
+.logo{
+	width: 100%;
+}
+#sidebar{
+	position: fixed;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	background: #252525;
+	padding: 0;
+	max-width: 250px;
+	height: 100%;
+}
+#sidebar *{
+	padding: 8px;
+	width: 100%; 
+	color: white;
+	font-size: 16px;
+}
+#sidebar :hover{
+	background: #353535;
+}
+#list{
+	display: flex;
+	flex-direction: column;
+	padding-left: 20px;
+}
+#menu{
+	display: flex; 
+	position: fixed; 
+	z-index: 1; 
+	top: 0;
+}
+#open{
+	top: 0;
+	background: rgba(53,53,53,0.6);
+	height: calc(100vh - 0px);
+}
+#open img{
+	height: 40px;
+}
+#panel{
+	padding: 10px;
+	max-width: 45%;
+	height: 100vh;
+	background: #353535;
+}
+#panel *{
+	color: white;	
+}
+#vk_auth{
+	margin: 5% auto;
+}
+.hide{
+	display: none;
+}
+#all{
+	margin: 0 auto;
+}
+#title{
+	text-align: center;
+	padding: 6px;
+}
+#content{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.textarea{
+	display: flex; 
+	flex-direction: column;
+	padding: 20px;
+	background: #FFFFFF;
+	border-radius: 1.5%;
+	height: auto;
+}
+.textarea textarea{
+	padding: 11px;
+	border-radius: 11px;
+	background-color: var(--main-color);
+	height: 100%;
+}
+.data{
+	display: flex; 
+	flex-direction: column;
+	padding: 20px;
+	justify-content: space-around;
+	background: #FFFFFF;
+	border-radius: 1.5%;
+}
+.input{
+	max-width: 350px;
+	height: 40px;
+	padding-left: 11px;
+    border-radius: 11px;
+    background-color: var(--main-color);
+}
+#btns{
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	max-width: 90%;
+}
+.button{
+	margin: 1%;
+}
+#btns button{
+	background: #9DC9F1;
+}
+#descr{
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	bottom: -20px;
+	background: #252525;
+	padding: 5px 0;
+	z-index: 2;
+}
+@media (max-width: 650px) {
+	#sidebar{
+		display: none;
+	}
+}
+@media (max-width: 400px) {
+	#open{
+		background: rgba(53,53,53,0);
+	}
+}
+@media (min-width: 650px) {
+	#open{
+		display: none;
+	}
+	#panel{
+		display: none;
+	}
+	#vk_auth{
+		margin-left: 46%;
+	}
+	#all{
+		padding-left: 250px;
+	}
+}

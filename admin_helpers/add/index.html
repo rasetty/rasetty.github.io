@@ -1,0 +1,17 @@
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script>
+        async function test(){
+            let common = await new Promise((resolve)=>{
+                $(function(){
+                    $("body").load("common.html");
+                    resolve();
+                });        
+            });             
+        }
+        test();
+    </script>
+    <script type="text/javascript" src="/add.js"></script>
+</head>
+<body>
+</body>

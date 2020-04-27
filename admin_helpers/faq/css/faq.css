@@ -1,0 +1,24 @@
+li{
+	font-size: 23px;
+	margin-bottom: 1%;
+}
+ol img{
+	width: 30vw;
+}
+ol img:hover{
+	width: 60vw;
+}
+#all{
+	padding-left: 15vw;
+}
+#descr{
+	bottom: -5px;
+}
+@media (max-width: 650px) {
+	ol img{
+	width: 100vw;
+	}
+	ol img:hover{
+		width: 200vw;
+	}
+}
