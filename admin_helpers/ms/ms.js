@@ -40,7 +40,8 @@ let message,
 	begin,
 	link,
 	N,
-	countN;
+	countN,
+    	newDur;
 //основная функция
 function start(){
 	if(t !==3) return
