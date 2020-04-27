@@ -3,12 +3,6 @@
     <script>
         async function test(){
             let common = await new Promise((resolve)=>{
-                /*
-                (function sleep(ms) {
-                    ms += new Date().getTime();
-                    while (new Date() < ms){}
-                }(1000))
-                */
                 $(function(){
                     $("#container").load("common.html");
                     resolve();
@@ -16,15 +10,12 @@
                 });
                         
             });
-            let personal = await new Promise((resolve)=>{
-                (function sleep(ms) {
-                    ms += new Date().getTime();
-                    while (new Date() < ms){}
-                }(1000))
+            setTimeout(()=>{
                 $(function(){
                     $("#all").load("ms.html");
                 });
-            });
+            }, 3000)
+                
         }
         test();
     </script>
