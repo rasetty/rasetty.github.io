@@ -1,8 +1,8 @@
-alert('я подключился');
+VK.init({apiId:7371175});
 VK.Widgets.Auth("vk_auth",{
     width: "300px;",
     onAuth: function(data){
-        person = data.uid;
+    	alert('/' + href + '/' + href + ".html")
         $(function(){
 			$("#all").load('/' + href + '/' + href + ".html");
 		});
