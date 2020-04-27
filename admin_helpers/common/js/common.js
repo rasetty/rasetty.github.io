@@ -2,11 +2,8 @@ VK.init({apiId:7371175});
 VK.Widgets.Auth("vk_auth",{
     width: "300px;",
     onAuth: function(data){
-    	alert('/' + href + '/' + href + ".html")
-        $(function(){
-			$("#all").load('/' + href + '/' + href + ".html");
-		});
-    	}
+    	alert('пашло')
+    }
 });
 /*
 var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.createTemplateTagFirstArg=function(a){return a.raw=a};$jscomp.createTemplateTagFirstArgWithRaw=function(a,b){a.raw=b;return a};$jscomp.arrayIteratorImpl=function(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}};$jscomp.arrayIterator=function(a){return{next:$jscomp.arrayIteratorImpl(a)}};$jscomp.makeIterator=function(a){var b="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return b?b.call(a):$jscomp.arrayIterator(a)};
