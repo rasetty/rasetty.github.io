@@ -4,25 +4,15 @@
         async function test(){
             let common = await new Promise((resolve)=>{
                 $(function(){
-                    console.log((new Date).getMilliseconds())
-                    $("#container").load("common.html");
-                    resolve(
-                        console.log((new Date).getMilliseconds())
-                    );
-
+                    $("body").load("common.html");
+                    resolve();
                 });
                         
-            });
-            setTimeout(()=>{
-                $(function(){
-                    $("#all").load("ms.html");
-                });
-            }, 3000)
-                
+            });                
         }
         test();
     </script>
 </head>
 <body>
-    <div id="container"></div>
+    
 </body>
