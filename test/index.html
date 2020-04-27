@@ -1,17 +1,17 @@
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
     <script>
-        
-            $( async function(){
-            let a = await new Promise((resolve)=>{
-                $("#container").load("common.html");
-                resolve();
+        async function test() {
+            let load = await new Promise((resolve)=>{
+                setTimeout(()=>{
+                    $("#container").load("common.html");
+                    resolve();
+                } ,5000)
+                
             });
-            $(function(){
-                $("#all").load("ms.html"); 
-            });
-        })
-        
+            $("#all").load("ms.html");
+        }
+        test();
     </script>
 </head>
 <body>
