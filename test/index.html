@@ -5,7 +5,11 @@
             let common = await new Promise((resolve)=>{
                 $(function(){
                     $("#container").load("common.html");
-                    resolve();
+                    console.clear()
+                    console.log((new Date).getMilliseconds())
+                    resolve(
+                        console.log((new Date).getMilliseconds())
+                    );
 
                 });
                         
