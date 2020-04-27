@@ -9,8 +9,12 @@
                     while (new Date() < ms){}
                 }(1000))
                 */
-                $("#container").load("common.html");
-                resolve();
+                $(function(){
+                    $("#container").load("common.html");
+                    resolve();
+
+                });
+                
                 console.log(228);          
             });
             //$("#all").load("ms.html");
