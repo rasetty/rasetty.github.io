@@ -4,9 +4,8 @@
         async function test(){
             let common = await new Promise((resolve)=>{
                 $(function(){
-                    $("#container").load("common.html");
-                    console.clear()
                     console.log((new Date).getMilliseconds())
+                    $("#container").load("common.html");
                     resolve(
                         console.log((new Date).getMilliseconds())
                     );
