@@ -23,5 +23,5 @@ open.onclick = function(){
 //подгрузка html
 let href = document.location.href.slice(40).replace(/\//g, '');
 $(function(){
-	$("#all").load('/admin_helpers' + '/' + href + '/' + href + ".html");
+	$("#all").load('/admin_helpers/' + 'faq/' + href + '/'+ href + ".html");
 });
