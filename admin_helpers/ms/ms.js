@@ -31,7 +31,6 @@ let message,
 function start(){
 	if(t !==3) return
 //сбор данных
-	let newBegin = begin;
 	message = document.getElementById('text').value;
 	count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
@@ -86,16 +85,23 @@ function start(){
 	}
 //уведомление о начале
 	alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
+	interval + 0;
 //функция отправления сообщений без закрепа
 	function send(){
-	
+		var newBegin = begin;
+		const CONFIG = {
+		app: {
+			dev: true
+		},
+		access_token: token
+	};
 	function postMsg(peer_id, msg) {
 		$.ajax({
 		url: 'https://api.vk.com/method/messages.send',
 		jsonp: 'callback',
 		dataType: 'jsonp',
 		data: {
-			access_token: token,
+			access_token: CONFIG.access_token,
 			peer_id: peer_id,
 			message: msg,
 			attachment: link,             
