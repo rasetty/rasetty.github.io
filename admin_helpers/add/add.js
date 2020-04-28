@@ -1,5 +1,5 @@
 //основная функция
-function start() {
+function start(){
 //создание переменных для работы
 	let token = document.getElementById('token').value,
 		id = document.getElementById('id').value,
@@ -84,7 +84,7 @@ function start() {
 			}, interval);
 		twenty--;
 		newBegin++;
-	})
+	})}
 //биг запускает рассылку каждый час мини на 20 человек
 	let big = setInterval(iter, 3660000);//3660000
 	iter();
