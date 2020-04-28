@@ -27,23 +27,27 @@ function start(){
 	};
 	alert('Добавление началось, будет закончено через ' + (Math.round( 20 * interval / 1000 / 60 * twenty) + (twenty * 60) ) + ' минут(ы)');
 	//сама функция добавления
-	function add(chat, id) {
-		$.ajax({
-			url: 'https://api.vk.com/method/messages.getChat',
-			jsonp: 'callback',
-			dataType: 'jsonp',
-			data: {
-				access_token: token,
-				chat_id: chat,
-				v: '5.45'
-			},
-			success: jsonp=> {
-				if(jsonp.response.members_count > 499 ){
-					return
-				}
-			}  
-		});
+	async function add(chat, id) {
+		let b = await new Promise((resolve)=>{
+			$.ajax({
+				url: 'https://api.vk.com/method/messages.getChat',
+				jsonp: 'callback',
+				dataType: 'jsonp',
+				data: {
+					access_token: token,
+					chat_id: chat,
+					v: '5.45'
+				},
+				success: jsonp=> {
+					if(jsonp.response.members_count > 499 ){
+						return resolve()
+					}else{
+						resolve()
+					}
 
+				}  
+			});
+		})
 		$.ajax({
 			url: 'https://api.vk.com/method/messages.addChatUser',
 			jsonp: 'callback',
