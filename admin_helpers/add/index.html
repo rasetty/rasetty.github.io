@@ -1,17 +1,17 @@
 <head>
+    <title>Add</title>
+    <link rel="stylesheet" type="text/css" href="add.css"/>
+    <link rel="shortcut icon" href="/admin_helpers/common/media/add.png" type="image/png">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script src="https://vk.com/js/api/openapi.js?167" type="text/javascript"></script>
     <script>
-        async function test(){
-            let common = await new Promise((resolve)=>{
-                $(function(){
-                    $("body").load("common.html");
-                    resolve();
-                });        
-            });             
-        }
-        test();
+        window.onload = ()=>{
+            $(function(){
+                $("body").load("/admin_helpers/common/html/common.html");
+            });
+        }     
     </script>
-    <script type="text/javascript" src="/add.js"></script>
 </head>
 <body>
+
 </body>
