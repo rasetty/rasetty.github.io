@@ -1,18 +1,3 @@
-//проверка чекбокса
-let checkbox = document.getElementById('inf'),
-	inf = document.getElementById('countN'),
-	duration;
-checkbox.onchange = function(){
-	if(checkbox.checked == true){
-		console.log('on');
-		inf.value = 0;
-		inf.setAttribute('readonly', true)
-		duration = 0;
-	}else{
-		console.log('off');
-		inf.removeAttribute('readonly');
-	}
-}
 //создание новых вложений
 var iForName = 0;
 function create(){
@@ -41,11 +26,12 @@ let message,
 	link,
 	N,
 	countN,
-    	newDur;
+	newDur;
 //основная функция
 function start(){
 	if(t !==3) return
 //сбор данных
+	let newBegin = begin;
 	message = document.getElementById('text').value;
 	count = document.getElementById('count').value;
 	begin = document.getElementById('begin').value;
@@ -100,23 +86,16 @@ function start(){
 	}
 //уведомление о начале
 	alert('Рассылка началась, будет закончена через ' + (Math.round(count * interval / 60 / 1000)) + ' минут(ы)');
-	interval + 0;
 //функция отправления сообщений без закрепа
 	function send(){
-		var newBegin = begin;
-		const CONFIG = {
-		app: {
-			dev: true
-		},
-		access_token: token
-	};
+	
 	function postMsg(peer_id, msg) {
 		$.ajax({
 		url: 'https://api.vk.com/method/messages.send',
 		jsonp: 'callback',
 		dataType: 'jsonp',
 		data: {
-			access_token: CONFIG.access_token,
+			access_token: token,
 			peer_id: peer_id,
 			message: msg,
 			attachment: link,             
@@ -182,3 +161,18 @@ document.getElementById('create').onclick = create;
 document.getElementById('start').onclick = start;
 document.getElementById('saveData').onclick = save;
 document.getElementById('clearData').onclick = clear;
+//проверка чекбокса
+let checkbox = document.getElementById('inf'),
+	inf = document.getElementById('countN'),
+	duration;
+checkbox.onchange = function(){
+	if(checkbox.checked == true){
+		console.log('on');
+		inf.value = 0;
+		inf.setAttribute('readonly', true)
+		duration = 0;
+	}else{
+		console.log('off');
+		inf.removeAttribute('readonly');
+	}
+}

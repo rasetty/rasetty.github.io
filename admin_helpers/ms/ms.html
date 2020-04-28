@@ -1,39 +1,39 @@
 <body style="background: #F3F2F0">
-        <h3 id="title">Рассылка сообщений</h3>
-        <div id="content">
-            <div class="textarea">
-                <label for="text">Введите нужный для отправки текст</label>
-                <textarea id="text" rows="10" required autocomplete='on'></textarea>
+    <h3 id="title">Рассылка сообщений</h3>
+    <div id="content">
+        <div class="textarea">
+            <label for="text">Введите нужный для отправки текст</label>
+            <textarea id="text" rows="10" required autocomplete='on'></textarea>
+        </div>
+        <div class="data" id="js">
+            <label for="key">Введите токен нужной страницы</label>
+            <input type="text" id="key" class="input" required>
+            <label for="interval">Интервал</label>
+            <input type="number" id="interval" class="input" required>
+            <label for="count">Количество бесед, в которые слать</label>
+            <input type="number" id="count" class="input" required>
+            <label for="begin">С какой беседы начать рассылку</label>
+            <input type="number" id="begin" class="input" required>
+            <label for="N">Рассылать каджые N минут, введите N</label>
+            <input type="number" id="N" class="input" required>
+            <div>
+                <label for="countN">Сколько сделать рассылок</label>
+                </br>
+                <input type="number" id="countN" class="input" value="0" min="1">
+                <input type="checkbox" id="inf">
+                <label for="inf">Бесконечно</label>
             </div>
-            <div class="data" id="js">
-                <label for="key">Введите токен нужной страницы</label>
-                <input type="text" id="key" class="input" required>
-                <label for="interval">Интервал</label>
-                <input type="number" id="interval" class="input" required>
-                <label for="count">Количество бесед, в которые слать</label>
-                <input type="number" id="count" class="input" required>
-                <label for="begin">С какой беседы начать рассылку</label>
-                <input type="number" id="begin" class="input" required>
-                <label for="N">Рассылать каджые N минут, введите N</label>
-                <input type="number" id="N" class="input" required>
-                <div>
-                    <label for="countN">Сколько сделать рассылок</label>
-                    </br>
-                    <input type="number" id="countN" class="input" value="0" min="1">
-                    <input type="checkbox" id="inf">
-                    <label for="inf">Бесконечно</label>
-                </div>
-                <div>
-                    <label for="link">Ссылка на прикрепляемый файл</br>(Ссылка типа wall246598308_5088)</label><br>
-                    <input type="text" id="link0" class="input">
-                    <input type="submit" id="create" class="btn" value="">
-                </div>
+            <div>
+                <label for="link">Ссылка на прикрепляемый файл</br>(Ссылка типа wall246598308_5088)</label><br>
+                <input type="text" id="link0" class="input">
+                <input type="submit" id="create" class="btn" value="">
             </div>
         </div>
-        <div class="btn" id="btns">
-            <button id="start" class="btn button">Начать рассылку</button>
-            <button id="saveData" class="btn button">Сохранить данные</button>
-            <button id="clearData" class="btn button">Очистить сохранение</button>
-        </div>
-        <script type="text/javascript" src="/admin_helpers/ms/ms.js"></script>
+    </div>
+    <div class="btn" id="btns">
+        <button id="start" class="btn button">Начать рассылку</button>
+        <button id="saveData" class="btn button">Сохранить данные</button>
+        <button id="clearData" class="btn button">Очистить сохранение</button>
+    </div>
+    <script type="text/javascript" src="/admin_helpers/ms/ms.js"></script>
 </body>
