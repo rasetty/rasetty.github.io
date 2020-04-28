@@ -1,0 +1,31 @@
+<head>
+    <title>Ошибки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/admin_helpers/faq/common/css/faq.css"/>
+    <link rel="shortcut icon" href="/admin_helpers/common/media/faq.png" type="image/png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script>
+        async function test(){
+            let common = await new Promise((resolve)=>{
+                $(function(){
+                    $("body").load("/admin_helpers/faq/common/html/common.html");
+                    resolve();
+                });        
+            });             
+        }
+        test();
+    </script>
+</head>
+<body style="background: #F3F2F0">    
+    <div id="all">
+        <h3 id="title">Возможные ошибки</h3>
+        <ol>
+            <li>Проверьте, правильно ли вы указали ключ доступа сообщества/токен.</li>
+            <li>Проверьте, не превысили ли вы <a href="/admin_helpers/faq/limits.html">ограничения</a> ВК.</li>
+            <li>Проверьте, возможно ваше сообщество/аккаунт не может рассылать сообщения/добавлять в друзья/ставить лайки/писать комментарии.</li>
+            <li>Проверьте, возможно ваше сообщество/аккаунт был удален/заблокирован/удален из бесед/заблокирован в группах/не добавлен в друзья.</li>
+            <li>Будьте внимательны с указанием интревалов и повторением рассылок, чтобы не превысить <a href="/admin_helpers/faq/limits.html">ограничений</a></li>
+        </ol>
+        <h5>Если вы не нашли ответа на свой вопрос, то посмотрите в других <a href="/admin_helpers/faq/faq.html">разделах</a>.</h5>
+    </div>
+</body>

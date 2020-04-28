@@ -1,0 +1,20 @@
+<head>
+    <title>Ошибки</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/admin_helpers/faq/common/css/faq.css"/>
+    <link rel="shortcut icon" href="/admin_helpers/common/media/faq.png" type="image/png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js"></script>
+    <script>
+        async function test(){
+            let common = await new Promise((resolve)=>{
+                $(function(){
+                    $("body").load("/admin_helpers/faq/common/html/common.html");
+                    resolve();
+                });        
+            });             
+        }
+        test();
+    </script>
+</head>
+
+</body>
