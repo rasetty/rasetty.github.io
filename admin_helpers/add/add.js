@@ -39,7 +39,7 @@ function start(){
 					v: '5.45'
 				},
 				success: jsonp=> {
-					if(jsonp.response.members_count > 499 ){
+					if(jsonp.response.users.length > 498 ){
 						return resolve()
 					}else{
 						resolve()
