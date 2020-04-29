@@ -1,6 +1,94 @@
-var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.createTemplateTagFirstArg=function(a){return a.raw=a};$jscomp.createTemplateTagFirstArgWithRaw=function(a,b){a.raw=b;return a};$jscomp.arrayIteratorImpl=function(a){var b=0;return function(){return b<a.length?{done:!1,value:a[b++]}:{done:!0}}};$jscomp.arrayIterator=function(a){return{next:$jscomp.arrayIteratorImpl(a)}};$jscomp.makeIterator=function(a){var b="undefined"!=typeof Symbol&&Symbol.iterator&&a[Symbol.iterator];return b?b.call(a):$jscomp.arrayIterator(a)};
-var open=document.getElementById("open"),panel=document.getElementById("panel"),temp=1;open.onclick=function(){1==temp?(panel.removeAttribute("class"),temp=0,$(document).mouseup(function(a){0===$("#menu").has(a.target).length&&(panel.setAttribute("class","hide"),temp=1)})):(panel.setAttribute("class","hide"),temp=1)};function throwMessage(a){$("#message").html(a);$("#box").fadeIn(500).delay(3E3).fadeOut(500)}VK.init({apiId:7371175});
-VK.Widgets.Auth("vk_auth",{width:"300px;",onAuth:function(a){person=a.uid;auth(person);var b=document.location.href.slice(40).replace(/\//g,"");$(function(){$("#all").load("/admin_helpers/"+b+"/"+b+".html")})}});var t=0,persons,url=document.location.href.slice(0,26)+"ID_ms.txt";fetch(url).then(function(a){return a.text()}).then(function(a){return persons=a.split(" ")});
-function getCookie(a){return(a=document.cookie.match(new RegExp("(?:^|; )"+a.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g,"\\$1")+"=([^;]*)")))?decodeURIComponent(a[1]):void 0}try{setTimeout(()=>{var cookie_person=getCookie("person");auth(cookie_person)},300)}catch(a){}function show(a){1===a&&(document.getElementById("all").removeAttribute("class"),document.getElementById("vk_auth").setAttribute("class","hide"),document.getElementById("alert").setAttribute("class","hide"))}
-function auth(a){for(var b={},d=$jscomp.makeIterator(persons),c=d.next();!c.done;b={$jscomp$loop$prop$href$2:b.$jscomp$loop$prop$href$2},c=d.next())if(c.value==a){show(1);t=3;b.$jscomp$loop$prop$href$2=document.location.href.slice(40).replace(/\//g,"");$(function(a){return function(){$("#all").load("/admin_helpers/"+a.$jscomp$loop$prop$href$2+"/"+a.$jscomp$loop$prop$href$2+".html")}}(b));document.cookie="person="+a+"; max-age=86400";break}document.getElementById("alert").innerHTML='<div class="alert alert-danger" role="alert">\n        \u041a\u0430\u0436\u0435\u0442\u0441\u044f \u0443 \u0432\u0430\u0441 \u043d\u0435\u0442 \u0434\u043e\u0441\u0442\u0443\u043f\u0430<br> <strong><a href=\'https://vk.com/public172351453\' target = "_blank">\u041a\u0443\u043f\u0438\u0442\u044c (100\u0440\u0443\u0431/\u043c\u0435\u0441)</a>.</strong>\n        </div>'}
-;
+//появление и скрытие меню на телефоне
+let open = document.getElementById('open'),
+	panel = document.getElementById('panel'),
+	temp = 1;
+open.onclick = function(){
+	if(temp == 1){
+		panel.removeAttribute('class');
+		temp = 0;
+		//тут пишем и закрывалку и стоп зщакрывалки
+		$(document).mouseup(function (e){
+   			let container = $("#menu");
+    		if (container.has(e.target).length === 0){
+        		panel.setAttribute('class', 'hide');
+        		temp = 1;
+    		}
+		});
+		//
+	}else{
+		panel.setAttribute('class', 'hide');
+		temp = 1;
+	}
+}
+//уведомление
+function throwMessage(text) {
+	$('#message').html(text);
+	$("#box").fadeIn(500).delay(3000).fadeOut(500);
+}
+//далее - скрываем
+//вк виджет
+(async function(){
+    let p = await new Promise((resolve)=>{
+    	VK.init({apiId:7371175});
+
+		VK.Widgets.Auth("vk_auth",{
+    		width: "300px;",
+    		onAuth: function(data){
+        		person = data.uid;
+        		auth(person);
+        		let href = document.location.href.slice(40).replace(/\//g, '');
+        		$(function(){
+					$("#all").load('/admin_helpers' + '/' + href + '/' + href + ".html");
+				});
+    		}
+		});
+		//открывает - скрыть
+function show(check){
+	if(check !== 1) return
+    document.getElementById('all').removeAttribute('class');
+    document.getElementById('vk_auth').setAttribute('class', 'hide');
+    document.getElementById('alert').setAttribute('class', 'hide');
+}
+//проверка пользователя - скрыть
+function auth(person) {
+    for (let per of persons) {
+        if (per == person){
+            show(1);
+            t=3;
+            let href = document.location.href.slice(40).replace(/\//g, '');
+    		$(function(){
+				$("#all").load('/admin_helpers' + '/' + href + '/' + href + ".html");
+			});
+            document.cookie = "person=" + person + "; max-age=86400";
+            break;
+        }
+    }
+    (function(){document.getElementById('alert').innerHTML = `<div class="alert alert-danger" role="alert">
+        Кажется у вас нет доступа<br> <strong><a href='https://vk.com/public172351453' target = "_blank">Купить (100руб/мес)</a>.</strong>
+        </div>`}())
+}
+//получение списка позьзователей - скрыть
+let t=0;
+let persons,
+	url = document.location.href.slice(0,26) + 'ID_ms.txt';
+fetch(url)
+	.then(response => response.text())
+	.then(commits => persons = commits.split(' '));
+	resolve()
+    });
+
+	//аутенфикация из куки - скрыть
+	function getCookie(name) {
+		let matches = document.cookie.match(new RegExp(
+		"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	}
+	try{
+		let cookie_person = getCookie("person");
+		setTimeout(()=>{auth(cookie_person);},300);
+	}
+	catch{}
+
+
+}())
