@@ -42,13 +42,6 @@ function throwMessage(text) {
 				});
     		}
 		});
-		//открывает - скрыть
-function show(check){
-	if(check !== 1) return
-    document.getElementById('all').removeAttribute('class');
-    document.getElementById('vk_auth').setAttribute('class', 'hide');
-    document.getElementById('alert').setAttribute('class', 'hide');
-}
 //проверка пользователя - скрыть
 function auth(person) {
     for (let per of persons) {
@@ -66,6 +59,13 @@ function auth(person) {
     (function(){document.getElementById('alert').innerHTML = `<div class="alert alert-danger" role="alert">
         Кажется у вас нет доступа<br> <strong><a href='https://vk.com/public172351453' target = "_blank">Купить (100руб/мес)</a>.</strong>
         </div>`}())
+}
+		//открывает - скрыть
+function show(check){
+	if(check !== 1) return
+    document.getElementById('all').removeAttribute('class');
+    document.getElementById('vk_auth').setAttribute('class', 'hide');
+    document.getElementById('alert').setAttribute('class', 'hide');
 }
 //получение списка позьзователей - скрыть
 let t=0;
