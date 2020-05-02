@@ -20,11 +20,11 @@ function create(){
 //основная функция
 function start() {
 //создание переменных для работы
-	let comm = document.getElementById('comm').split('\n'),
-		interval = document.getElementById('interval') * 1000,
+	let comm = document.getElementById('comm').value.split('\n'),
+		interval = document.getElementById('interval').value * 1000,
 		attachments,
 		data,
-		token = getElementById('token');
+		token = getElementById('token').value;
 	for (let i = 0; i <= iForName; i++) {
 		attachments = document.getElementById('link' + i).value + ',';
 	}
@@ -73,11 +73,11 @@ function start() {
 //сохранение данных
 function save(){
 	localStorage.setItem('tokenS', document.getElementById('token').value); 
-	localStorage.setItem('textS', document.getElementById('text').value); 
+	localStorage.setItem('commS', document.getElementById('comm').value); 
 	localStorage.setItem('intervalS', document.getElementById('interval').value); 
 }
 //восстановление сохраненных данных
-document.getElementById('token').value = localStorage.getItem('tokenS');
+document.getElementById('comm').value = localStorage.getItem('commS');
 document.getElementById('text').value = localStorage.getItem('textS');
 document.getElementById('interval').value = localStorage.getItem('intervalS');
 //события документа
