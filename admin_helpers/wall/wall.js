@@ -24,7 +24,7 @@ function start() {
 		interval = document.getElementById('interval').value * 1000,
 		attachments,
 		data,
-		token = getElementById('token').value;
+		token = document.getElementById('token').value;
 	for (let i = 0; i <= iForName; i++) {
 		attachments = document.getElementById('link' + i).value + ',';
 	}
@@ -77,8 +77,8 @@ function save(){
 	localStorage.setItem('intervalS', document.getElementById('interval').value); 
 }
 //восстановление сохраненных данных
+document.getElementById('token').value = localStorage.getItem('tokenS');
 document.getElementById('comm').value = localStorage.getItem('commS');
-document.getElementById('text').value = localStorage.getItem('textS');
 document.getElementById('interval').value = localStorage.getItem('intervalS');
 //события документа
 document.getElementById('create').onclick = create;
