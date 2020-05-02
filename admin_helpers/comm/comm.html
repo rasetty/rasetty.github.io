@@ -1,0 +1,30 @@
+<body style="background: #F3F2F0">
+    <h3 id="title">Первый коммент</h3>
+    <div id="content">
+        <div class="textarea">
+            <label for="log">Лог действий</label>
+            <textarea id="log" rows="10" cols="35" readonly></textarea>
+        </div>
+        <div class="textarea">
+            <label for="comm">Текст комментария</label>
+            <textarea id="comm" rows="10" cols="35"></textarea>
+        </div>
+        <div class="data" id="js">
+            <label for="token">Введите токен нужной страницы</label>
+            <input type="text" id="token" class="input" required>
+            <label for="interval">Интервал</label>
+            <input type="number" id="interval" class="input" required>
+            <div>
+                <label for="link">Ссылка на прикрепляемый файл</br>(Ссылка типа photo246598308_5088)</label><br>
+                <input type="text" id="link0" class="input">
+                <input type="submit" id="create" class="btn" value="">
+            </div>
+        </div>
+    </div>
+    <div class="btn" id="btns">
+        <button id="start" class="btn button">Начать</button>
+        <button id="saveData" class="btn button">Сохранить данные</button>
+        <button id="clearData" class="btn button">Очистить сохранение</button>
+    </div>
+    <script type="text/javascript" src="/admin_helpers/comm/comm.js"></script>
+</body>
