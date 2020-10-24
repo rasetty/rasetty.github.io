@@ -1,0 +1,29 @@
+html {
+  font-size: 21px;
+}
+
+.order {
+  border: .5px solid black;
+  border: .5px solid black;
+  padding: 1px;
+  margin: 10px 0;
+}
+
+.order td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.order input {
+  border: none;
+  text-align: center;
+  font-size: 100%;
+}
+
+.result {
+  text-align: right;
+}
+
+.container{
+	position: absolute;
+}
