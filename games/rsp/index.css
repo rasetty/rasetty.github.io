@@ -1,0 +1,98 @@
+body, html{
+    margin: 0 auto;
+    padding: 0;
+    min-height: 100%;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+#wrap{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #BBBBBB;
+    display: grid;
+    grid-template-rows: auto auto 1fr; 
+    grid-template-areas: 
+    "header"
+    "content"
+    "empty";
+}
+#header{
+    background: #ED6534;
+    padding: 1%;
+    grid-area: header;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, auto));
+}
+#header a{
+    text-decoration: none;
+}
+#content{
+    padding: 2%;
+    grid-area: content;
+    display: grid;
+    grid-template-rows: repeat(4, auto); 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5%;
+    justify-items: center;
+    align-content: start;
+    grid-template-areas: 
+    "h2 h2 h2"
+    "rock scissor paper"
+    ". enemy ."
+    ". repeat .";
+}
+#content img{
+    width: 35%;
+    justify-self: center;
+    align-self: center;
+}
+#content h2{
+    grid-area: h2;
+    background: red;
+    font-weight: 900;
+}
+#rock{
+    grid-area: rock;
+    transition: opacity 0.5s;
+}
+#scissor{
+    grid-area: scissor;
+}
+#paper{
+    grid-area: paper;
+    transition: opacity 0.5s;
+}
+#enemy{
+    grid-area: enemy;
+}
+#counter{
+    grid-area: enemy;
+}
+#repeat{
+    grid-area: repeat;
+    display: none;
+}
+.choice:hover {
+    animation: 0.4s ease-in-out normal shaking;
+}
+@keyframes shaking{
+    50%, 100%{
+        transform: rotate(-10deg);
+    }
+    15%, 70%{
+        transform: rotate(10deg);
+    }
+}
+#footer{
+    background: #ED6534;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    grid-area: footer;
+}
+@media(max-width: 1060px){
+    #content img{
+        width: 60%;
+    }
+}
