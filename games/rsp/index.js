@@ -56,7 +56,7 @@ function fight(client) {
 	else if(warrior == 3 && client == 2){
 		result.innerHTML = 'Win!';
 	}else{
-		console.log('Tie');
+		result.innerHTML = 'Tie';
 	}
 
 }
@@ -82,6 +82,7 @@ paper.onclick = async function() {
 	})
 	fight(3);
 }
+//перезапуск игры
 repeat.onclick = function() {
 	rock.style.gridArea = 'rock';
 	scissor.style.gridArea = 'scissor';
@@ -96,9 +97,4 @@ repeat.onclick = function() {
 	repeat.style.display = 'none';
 	result.innerHTML = 'Choose it';
 }
-/*
-	сделать адаптации картинок
-	нормальный вывод победы/поражения
-	отключение анимации
-	сделать все фигуры одинаковыми
-*/
+/**/
