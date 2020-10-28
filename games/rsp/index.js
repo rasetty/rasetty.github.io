@@ -14,6 +14,9 @@ function remove(one, two, three) {
 	two.style.opacity = 0;
 	three.style.gridArea = 'scissor';
 	three.classList.remove("choice");
+	one.onclick = null;
+	two.onclick = null;
+	three.onclick = null;
 	counter.innerHTML = '3';
 	setTimeout(()=>{counter.innerHTML = '2'}, 1000);
 	setTimeout(()=>{counter.innerHTML = '1'}, 2000);
@@ -61,27 +64,33 @@ function fight(client) {
 
 }
 //вещаю онклики
-rock.onclick = async function() {
+async function chooseRock() {
 	await new Promise((resolve)=>{
 		remove(scissor, paper, rock);
 		setTimeout(()=>{resolve()}, 3000)
 	})
 	fight(1);
 }
-scissor.onclick = async function() {
+rock.onclick = chooseRock;
+
+async function chooseScissor() {
 	await new Promise((resolve)=>{
 		remove(paper, rock, scissor);
 		setTimeout(()=>{resolve()}, 3000)
 	})
 	fight(2);
 }
-paper.onclick = async function() {
+scissor.onclick = chooseScissor;
+
+async function choosePaper() {
 	await new Promise((resolve)=>{
 		remove(scissor, rock, paper);
 		setTimeout(()=>{resolve()}, 3000)
 	})
 	fight(3);
 }
+paper.onclick = choosePaper;
+
 //перезапуск игры
 repeat.onclick = function() {
 	rock.style.gridArea = 'rock';
@@ -96,5 +105,8 @@ repeat.onclick = function() {
 	paper.style.opacity = 255;
 	repeat.style.display = 'none';
 	result.innerHTML = 'Choose it';
+	rock.onclick = chooseRock;
+	scissor.onclick = chooseScissor;
+	paper.onclick = choosePaper;
 }
 /**/
