@@ -38,6 +38,7 @@
     grid-area: enemy;
 }
 #counter{
+    font-size: 500%;
     grid-area: enemy;
 }
 #repeat{
@@ -62,5 +63,8 @@
 @media(max-width: 1060px){
     #content img{
         width: 60%;
+    }
+    #counter{
+        font-size: 350%
     }
 }
