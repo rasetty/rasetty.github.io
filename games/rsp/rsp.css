@@ -1,0 +1,66 @@
+#content{
+    padding: 2%;
+    grid-area: content;
+    display: grid;
+    grid-template-rows: repeat(4, auto); 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5%;
+    justify-items: center;
+    align-content: start;
+    grid-template-areas: 
+    "h2 h2 h2"
+    "rock scissor paper"
+    ". enemy ."
+    ". repeat .";
+}
+#content img{
+    width: 35%;
+    justify-self: center;
+    align-self: center;
+}
+#content h2{
+    grid-area: h2;
+    background: red;
+    font-weight: 900;
+}
+#rock{
+    grid-area: rock;
+    transition: opacity 0.5s;
+}
+#scissor{
+    grid-area: scissor;
+}
+#paper{
+    grid-area: paper;
+    transition: opacity 0.5s;
+}
+#enemy{
+    grid-area: enemy;
+}
+#counter{
+    grid-area: enemy;
+}
+#repeat{
+    grid-area: repeat;
+    display: none;
+}
+.choice:hover {
+    animation: 0.4s ease-in-out normal shaking;
+}
+@keyframes shaking{
+    50%, 100%{
+        transform: rotate(-10deg);
+    }
+    15%, 70%{
+        transform: rotate(10deg);
+    }
+}
+#footer{
+    position: absolute;
+    bottom: 0px;
+}
+@media(max-width: 1060px){
+    #content img{
+        width: 60%;
+    }
+}

@@ -1,0 +1,10 @@
+#content{
+    display: grid;
+    align-items: stretch;
+    justify-items: stretch;
+    grid-template-areas: 
+    "game";
+}
+#game{
+    grid-area: game;
+}

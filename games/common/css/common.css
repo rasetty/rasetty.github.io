@@ -1,0 +1,38 @@
+body, html{
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Noto Sans JP', sans-serif;
+    background: green;
+}
+#wrap{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #BBBBBB;
+    display: grid;
+    grid-template-rows: auto 1fr auto; 
+    grid-template-areas: 
+    "header"
+    "content"
+    "footer";
+}
+#header{
+    background: #ED6534;
+    padding: 1%;
+    grid-area: header;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, auto));
+}
+#header a{
+    text-decoration: none;
+}
+#footer{
+    background: #ED6534;
+    width: 100%;
+    padding: 0.3% 0;
+    text-align: center;
+    font-weight: bold;
+    grid-area: footer;
+}
