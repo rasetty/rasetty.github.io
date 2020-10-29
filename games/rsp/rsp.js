@@ -29,14 +29,17 @@ function fight(client) {
 	switch(values[( Math.floor(Math.random() * 3) )]) {
 		case 1:
 			enemy.src = 'media/rock.png';
+			enemy.style.display = 'block';
 			warrior = 1;
 			break;
 		case 2:
 			enemy.src = 'media/scissor.png';
+			enemy.style.display = 'block';
 			warrior = 2;
 			break;
 		case 3:
 			enemy.src = 'media/paper.png';
+			enemy.style.display = 'block';
 			warrior = 3;
 			break;
 	}
@@ -100,6 +103,7 @@ repeat.onclick = function() {
 	scissor.classList.add("choice");
 	paper.classList.add("choice");
 	enemy.src = '';
+	enemy.style.display = 'none';
 	rock.style.opacity = 255;
 	scissor.style.opacity = 255;
 	paper.style.opacity = 255;
