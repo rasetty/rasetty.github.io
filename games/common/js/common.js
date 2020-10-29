@@ -1,2 +1,2 @@
-let href = document.location.href.slice(37).replace(/\//g, '');
+let href = document.location.href.slice(32).replace(/\//g, '');
 $("#content").load('/games' + '/' + href + '/' + href + ".html");
