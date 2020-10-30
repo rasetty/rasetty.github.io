@@ -60,7 +60,7 @@ close.onclick = ()=>{
 	stopGame(false);
 }
 //работа с кнопкой паузы
-//pause[0].style.top = innerHeight - (innerHeight - document.getElementById('header').offsetHeight);
+pause[0].style.top = innerHeight - (innerHeight - document.getElementById('header').offsetHeight);
 document.addEventListener('keydown', ()=>{
 	if(event.keyCode == 27) stopGame(true)
 });
@@ -193,5 +193,4 @@ function draw() {
 /*
 	сделать сохранения рекорда настроек
 	сделать хедер
-	починить то что змея через клетку движется
 */
