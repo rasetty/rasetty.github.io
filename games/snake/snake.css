@@ -8,3 +8,31 @@
 #game{
     grid-area: game;
 }
+#pause{
+    position: absolute;
+    right: 0;
+    opacity: 10;
+    padding: 0.3%;
+}
+#menuPause{
+    position: absolute;
+    width: 25vh;
+    height: 25vh;
+    color: white;
+    background: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+#speed{
+    padding: 3px;
+}
+#died{
+    position: absolute;
+    background: #BBBBBB;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 3%;
+}

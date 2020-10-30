@@ -1,4 +1,23 @@
 <body>
 	<canvas id="game">HTML 5 не поддерживется</canvas>
+	<input type="submit" class="pause" id="pause" value=" || ">
+	<div id="died">
+		<b>DIED</b>
+		<input type="submit" id="close" value="Close">
+	</div>
+	<div id="menuPause">
+		<b id="topScore">Top score: 1488</b>
+		<input type="submit" class="pause" value="Play">
+		<input type="submit" id="repeat" value="Repeat">
+		<input type="submit" id="suicide" value="Suicide: Off">
+		<div>
+			<b>Speed: </b><b id="speed">5</b><input type="submit" id="inc" value="+"><input type="submit" id="dec" value="-">
+		</div>
+		<!--
+		<div id="size">
+			<b>Size 1 block: </b><b id="box">32</b><input type="submit" id="incS" value="+"><input type="submit" id="decS" value="-">
+		</div>
+		-->
+	</div>
 	<script type="text/javascript" src="snake.js"></script>
 </body>
