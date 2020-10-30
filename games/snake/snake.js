@@ -15,24 +15,39 @@ let canvas = document.getElementById("game"),
 	died = document.getElementById('died'),
 	close = document.getElementById('close'),
 	max = 10,
-	play = !false,
 	repeat = document.getElementById('repeat'),
 	contin = document.getElementById('play'),
-	save;
+	game;
 function stopGame(Save){
-	save = Save;
+	//переопределяем все
+	if (!Save){
+		score = 0;
+		food = {
+			x: Math.floor( (Math.random() * get(canvas.width) / box) ) * box,
+			y: Math.floor( (Math.random() * get(canvas.height) / box) ) * box 
+		};
+		snake = [];
+		dir = undefined;
+		getSpeed();
+		if(suicide.value == 'Suicide: Off'){
+			kys = 0
+		}else{
+			kys = 1;
+		};
+		snake[0] = {
+			x: get(canvas.width / 2),
+			y: get(canvas.height / 2)
+		}
+		createFood();
+	}
 	if(menuPause.style.display != 'none'){
 		//играем
 		menuPause.style.display = 'none';
 		game = setInterval(draw, (getSpeed() * 10) + 30);
-		console.log('I created it')
-		play = !true;
 	}else{
 		//пауза
 		menuPause.style.display = 'flex';
 		clearInterval(game);
-		console.log('I deleted it')
-		play = !false;
 	}
 }
 function kill() {
@@ -87,7 +102,6 @@ let foodImg = new Image()
 foodImg.src = "media/food.png";
 //все игровые параметры
 let score = 0,
-	game = setInterval(draw, (getSpeed() * 10) + 30),
 	food = {
 		x: Math.floor( (Math.random() * get(canvas.width) / box) ) * box,
 		y: Math.floor( (Math.random() * get(canvas.height) / box) ) * box 
@@ -113,29 +127,6 @@ function createFood() {
 }
 //основная функция - рисуем весь холст
 function draw() {
-	//переопределяем все
-	if (!save){
-		score = 0;
-		food = {
-			x: Math.floor( (Math.random() * get(canvas.width) / box) ) * box,
-			y: Math.floor( (Math.random() * get(canvas.height) / box) ) * box 
-		};
-		snake = [];
-		dir = undefined;
-		getSpeed();
-		if(suicide.value == 'Suicide: Off'){
-			kys = 0
-		}else{
-			kys = 1;
-		};
-		snake[0] = {
-			x: get(canvas.width / 2),
-			y: get(canvas.height / 2)
-		}
-		createFood();
-		save = !save;
-	}
-	if(play) return;
 	//получаем направление движения
 	document.addEventListener('keydown', direction);
 	function direction() {
@@ -200,10 +191,7 @@ function draw() {
 	snake.unshift(newHead);
 }
 /*
-	мб рекорд(в меню паузы)
-	суецыд(в меню паузы)
-	настройки игры с сохранением(в меню паузы)
-	
-	кнопки для змейки на телефоне
-	адаптация под телефон хедера
+	сделать сохранения рекорда настроек
+	сделать хедер
+	починить то что змея через клетку движется
 */
