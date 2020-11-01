@@ -171,7 +171,7 @@ function draw() {
 		score++;
 		if(localStorage.getItem('topScore') < score){
 			localStorage.setItem('topScore', score);
-			topScore.innerHTML = localStorage.getItem('topScore');
+			topScore.innerHTML = 'Top score: ' + localStorage.getItem('topScore');
 		};
 		food = {
 			x: Math.floor( (Math.random() * get(canvas.width) / box) ) * box,
@@ -200,7 +200,7 @@ function draw() {
 	snake.unshift(newHead);
 }
 //локал сторидж заполнение
-topScore.innerHTML = localStorage.getItem('topScore') == null ? 0 : localStorage.getItem('topScore');
+topScore.innerHTML = localStorage.getItem('topScore') == null ?'Top score: ' + 0 :'Top score: ' + localStorage.getItem('topScore');
 localStorage.setItem('topScore', score);
 
 speed.innerHTML = sessionStorage.getItem('speed') == null ? 5 : sessionStorage.getItem('speed');
