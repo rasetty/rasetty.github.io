@@ -17,7 +17,20 @@ let canvas = document.getElementById("game"),
 	max = 10,
 	repeat = document.getElementById('repeat'),
 	contin = document.getElementById('play'),
-	game;
+	game,
+	speed = document.getElementById('speed'),
+	speedV,//speedV = speed.innerHTML
+	topScore = document.getElementById('topScore');
+document.getElementById('dec').onclick = function(){
+	if(speedV > 1) speedV--;
+	speed.innerHTML = speedV;
+	sessionStorage.setItem('speed', speedV);
+}
+document.getElementById('inc').onclick = function(){
+	if(speedV < 9) speedV++;
+	speed.innerHTML = speedV;
+	sessionStorage.setItem('speed', speedV);
+}
 function stopGame(Save){
 	//переопределяем все
 	if (!Save){
@@ -50,6 +63,7 @@ function stopGame(Save){
 		clearInterval(game);
 	}
 }
+//суецыд
 function kill() {
 	died.style.display = 'flex';
 	died.style.top = (canvas.height - died.offsetHeight) / 2 + 'px';
@@ -60,7 +74,7 @@ close.onclick = ()=>{
 	stopGame(false);
 }
 //работа с кнопкой паузы
-pause[0].style.top = innerHeight - (innerHeight - document.getElementById('header').offsetHeight);
+//pause[0].style.top = innerHeight - (innerHeight - document.getElementById('header').offsetHeight);
 document.addEventListener('keydown', ()=>{
 	if(event.keyCode == 27) stopGame(true)
 });
@@ -68,8 +82,8 @@ pause[0].onclick = ()=>stopGame(true);
 pause[1].onclick = ()=>stopGame(true);
 repeat.onclick = ()=>stopGame(false);
 //задаем канвасу размеры
-canvas.width = get(content.offsetWidth);
-canvas.height = get(content.offsetHeight);
+canvas.width = get(content.offsetWidth); //get(content.offsetWidth);
+canvas.height = get(content.offsetHeight); //get(content.offsetHeight);
 //меню
 menuPause.style.top = (canvas.height - menuPause.offsetHeight) / 2 + 'px'; //canvas.height / 2 * 0.8 + 'px';
 menuPause.style.left = (canvas.width - menuPause.offsetWidth) / 2 + 'px';//тут
@@ -78,24 +92,16 @@ suicide.onclick = function() {
 	if(kys == 0){
 		suicide.value = 'Suicide: On';
 		kys = 1;
+		sessionStorage.setItem('kys', 'Suicide: On');
 	}else{
 		suicide.value = 'Suicide: Off';
+		sessionStorage.setItem('kys', 'Suicide: Off');
 		kys = 0;
 	}
 }
 //установка скоростей
 function getSpeed() {
-	let speed = document.getElementById('speed'),
-		speedV = speed.innerHTML;
-	document.getElementById('dec').onclick = function(){
-		if(speedV > 1) speedV--;
-		speed.innerHTML = speedV;
-	}
-	document.getElementById('inc').onclick = function(){
-		if(speedV < 9) speedV++;
-		speed.innerHTML = speedV;
-	}
-	return speedV = max - speedV;
+	return max - speedV;
 }
 //картинка еды
 let foodImg = new Image()
@@ -108,7 +114,7 @@ let score = 0,
 	},
 	snake = [],
 	dir,
-	kys = 0;
+	kys;
 snake[0] = {
 	x: get(canvas.width / 2),
 	y: get(canvas.height / 2)
@@ -163,12 +169,15 @@ function draw() {
 	//проверка на съедение еды и создание новой
 	if (food.x == snakeX && food.y == snakeY){
 		score++;
+		if(localStorage.getItem('topScore') < score){
+			localStorage.setItem('topScore', score);
+			topScore.innerHTML = localStorage.getItem('topScore');
+		};
 		food = {
 			x: Math.floor( (Math.random() * get(canvas.width) / box) ) * box,
 			y: Math.floor( (Math.random() * get(canvas.height) / box) ) * box 
 		};
 		createFood();
-		snake.push
 	}else{
 		snake.pop();
 	}
@@ -190,7 +199,25 @@ function draw() {
 	};
 	snake.unshift(newHead);
 }
+//локал сторидж заполнение
+topScore.innerHTML = localStorage.getItem('topScore') == null ? 0 : localStorage.getItem('topScore');
+localStorage.setItem('topScore', score);
+
+speed.innerHTML = sessionStorage.getItem('speed') == null ? 5 : sessionStorage.getItem('speed');
+speedV = speed.innerHTML;
+
+suicide.value = sessionStorage.getItem('kys') == null ? 'Suicide: Off' : sessionStorage.getItem('kys');
+if(suicide.value == 'Suicide: Off'){
+	kys = 0;
+}else{
+	kys = 1;
+};
 /*
-	сделать сохранения рекорда настроек
+	предложить сохранить игру при закрытии вкладки и сохранять ее
 	сделать хедер
+*/
+/*
+	1) адаптировать хедер под тф
+	2) на тф управление сделать
+	если типо иннер хейт меньше того то то бокс равен
 */
