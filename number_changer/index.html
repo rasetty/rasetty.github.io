@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Num Changer</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="nc.css">
 </head>
 <body>
@@ -10,21 +11,25 @@
 		<textarea autofocus rows="25" placeholder="incorrect numbers"></textarea>
 		<button id="format">format</button>
 		<textarea readonly placeholder="here will be correct numbers"></textarea>
-		<div>
-			<input type="text" id="prefix" placeholder="prefix (just with id, empty-needn`t)">
+		<div id="settings">
 			<div>
-				<span>Types:</span>
-
+				<label for="prefix">Prefix, just with id (leave empty id needn`t)</label><br>
+				<input type="text" id="prefix" placeholder="prefix">
+			</div>
+			<span>Types:</span>
+			<div>
 				<input type="radio" id="type1" name='1' checked>
 				<label for="type1">+79XXXXXXXXX</label>
-
+			</div>
+			<div>
 				<input type="radio" id="type2" name='1'>
 				<label for="type2">89XXXXXXXXX</label>
-
+			</div>
+			<div>
 				<input type="radio" id="type3" name='1'>
 				<label for="type3">+79XX-XXX-XX-XX</label>
 			</div>
-			<div style="display: flex; align-items: center; margin-top: 0.5%;">
+			<div id="forId">
 				<label for="toggle">ID:</label>
 				<input type="checkbox" id="toggle" class="toggle">
 			</div>

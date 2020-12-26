@@ -10,9 +10,12 @@ body, html{
 	margin-top: 1%;
 	display: grid;
 	grid-template-columns: 0.45fr auto 0.45fr;
-	grid-template-rows: 0.7fr;
-	gap: 1%;
+	grid-template-rows: 0.7fr 0.3fr;
 	justify-content: center;
+	grid-template-areas: 
+	"texts texts texts"
+	"settings settings settings";
+	gap: 3%;
 }
 textarea {
 	resize: vertical;
@@ -21,7 +24,18 @@ textarea {
 	justify-self: start;
 	align-self: start;
 }
-
+#settings{
+	display: grid;
+	grid-area: settings;
+	gap: 3%;
+}
+#prefix{
+	min-width: 20%;
+}
+#forId{
+	display: flex;
+	align-items: center;
+}
 #toggle{
 	margin: 0 1.2%;
 	position: relative;
