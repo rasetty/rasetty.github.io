@@ -1,0 +1,56 @@
+body, html{
+	margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+#wrapper{
+	height: 100%;
+	margin-top: 1%;
+	display: grid;
+	grid-template-columns: 0.45fr auto 0.45fr;
+	grid-template-rows: 0.7fr;
+	gap: 1%;
+	justify-content: center;
+}
+textarea {
+	resize: vertical;
+}
+#format{
+	justify-self: start;
+	align-self: start;
+}
+
+#toggle{
+	margin: 0 1.2%;
+	position: relative;
+	width: 47.5px;
+	height: 25.5px;
+	border: 1px solid #bbc1e1;
+	border-radius: 30px;
+	outline: none;
+	cursor: pointer;
+	appearance: none;
+	transition: all 0.5s;
+}
+#toggle::after {
+	content: "";
+	position: absolute;
+	left: 0.5px;
+	top: 0.5px;
+	width: 22.5px;
+	height: 22.5px;
+	background-color: #000000;
+	border-radius: 50%;
+	transform: translateX(0);
+	transition: all 0.5s;
+}
+#toggle:checked::after {
+	content: "";
+	transform: translateX(100%);
+	background-color: #fff;
+}
+#toggle:checked {
+	background-color: #000000;
+}
