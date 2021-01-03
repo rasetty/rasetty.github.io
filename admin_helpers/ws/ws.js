@@ -10,6 +10,25 @@ document.getElementById('start').onclick = spam;
 document.getElementById('save').onclick = save;
 document.getElementById('clear').onclick = clear;
 
+//создание новых вложений
+var iForName = 0;
+function create(){
+	if (iForName >= 10){
+		return
+	}else{
+		iForName++;
+	};
+	var name = 'link' + iForName;
+	var em = document.createElement('em');
+	em.innerHTML = 'Ссылка на прикрепляемый файл';
+	var input = document.createElement('input');
+	input.setAttribute('type', 'text');
+	input.setAttribute('class', 'input');
+	input.setAttribute('id', name);
+	var place = document.getElementById('js');
+	place.appendChild(em);
+	place.appendChild(input);
+}
 function getData(){
 	//сбор данных
 	let text = document.getElementById('text').value,
