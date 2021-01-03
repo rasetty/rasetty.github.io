@@ -1,3 +1,4 @@
+alert('I am working1!!1!!!!!1!!1!11!!');
 const log = document.getElementById('log'),
 	v = '5.126',
 	cors = 'https://cors-anywhere.herokuapp.com/';
