@@ -1,4 +1,3 @@
-alert('I am working1!!1!!!!!1!!1!11!!');
 const log = document.getElementById('log'),
 	v = '5.126',
 	cors = 'https://cors-anywhere.herokuapp.com/';
@@ -215,7 +214,7 @@ async function spam(){
 	);
 }
 //очистка локалсториджа
-function сlear(){
+function clear(){
     localStorage.clear();
     window.location.reload();
 }
