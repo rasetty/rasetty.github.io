@@ -5,6 +5,7 @@
 	grid-template-areas: 
 	"text groups"
 	"data log";
+	column-gap: 10%;
 }
 .textarea{
 	display: flex; 
