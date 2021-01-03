@@ -96,7 +96,6 @@ a{
 	display: flex; 
 	flex-direction: column;
 	padding: 20px;
-	justify-content: space-around;
 	background: #FFFFFF;
 	border-radius: 1.5%;
 }
