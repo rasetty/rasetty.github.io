@@ -1,11 +1,12 @@
 #content{
 	display: grid;
-	grid-template-columns: 0.5fr 0.5fr;
+	grid-template-columns: 0.4fr 0.4fr;
 	grid-template-rows: auto auto;
 	grid-template-areas: 
 	"text groups"
 	"data log";
 	column-gap: 10%;
+	justify-content: center;
 }
 .textarea{
 	display: flex; 
