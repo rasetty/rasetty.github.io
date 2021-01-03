@@ -33,12 +33,26 @@ function getData(){
 	//сбор данных
 	let text = document.getElementById('text').value,
 		interval = document.getElementById('interval').value * 1000,
-		attachments = document.getElementById('attachments').value,
 		token = document.getElementById('token').value,
 		key = document.getElementById('key').value,
-		groups = document.getElementById('groups').value;
-	//чек на фулл данных
-	if((text || interval || token || groups) == '') return alert('Incomplete data')
+		groups = document.getElementById('groups').value,
+		attachments;
+	for (let i = 0; i <= iForName; i++) {
+		attachments += document.getElementById('link' + i).value + ',';
+	}
+	//провека полноты данных
+	if (text == ''){
+		return alert('Не введен текст рассылки');
+	};
+	if (token == ''){
+		return alert('Не введен токен');
+	};
+	if (interval == ''){
+		return alert('Не указан интервал');
+	};
+	if (groups == ''){
+		return alert('Не указаны паблики для спама');
+	};
 
 //делаем массив нормальных данных
 
