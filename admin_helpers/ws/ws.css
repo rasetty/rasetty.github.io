@@ -1,1 +1,30 @@
-
+#content{
+	display: grid;
+	grid-template-columns: 0.5fr 0.5fr;
+	grid-template-rows: auto auto;
+	grid-template-areas: 
+	"text groups"
+	"data log";
+}
+.textarea{
+	display: flex; 
+	flex-direction: column;
+	padding: 20px;
+	background: #FFFFFF;
+	border-radius: 1.5%;
+	height: auto;
+}
+.textarea textarea{
+	padding: 11px;
+	border-radius: 11px;
+	background-color: var(--main-color);
+	height: 100%;
+}
+#create{
+	margin-bottom: 5px;
+	background: url(media/plus.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	height: 35px;
+	width: 35px;
+}
