@@ -7,8 +7,8 @@ let base64,
 	key = '';
 //назначаем кнопки
 document.getElementById('start').onclick = spam;
-document.getElementById('save').onclick = save;
-document.getElementById('clear').onclick = clear;
+document.getElementById('saveData').onclick = save;
+document.getElementById('clearData').onclick = clear;
 
 //создание новых вложений
 var iForName = 0;
