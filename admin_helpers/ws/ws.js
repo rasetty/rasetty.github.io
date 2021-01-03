@@ -6,12 +6,13 @@ let base64,
 	sid = '',
 	key = '';
 //назначаем кнопки
+document.getElementById('create').onclick = create;
 document.getElementById('start').onclick = spam;
 document.getElementById('saveData').onclick = save;
 document.getElementById('clearData').onclick = clear;
 
 //создание новых вложений
-var iForName = 0;
+let iForName = 0;
 function create(){
 	if (iForName >= 10){
 		return
@@ -223,14 +224,12 @@ function save(){
     localStorage.setItem('tokenS', document.getElementById('token').value);
     localStorage.setItem('messageS', document.getElementById('text').value);
     localStorage.setItem('intervalS', document.getElementById('interval').value);
-    localStorage.setItem('attachmentsS', document.getElementById('attachments').value);
     localStorage.setItem('clientKeyS', document.getElementById('key').value);
     localStorage.setItem('groupsS', document.getElementById('groups').value);
 }
 //заполнение данных
 document.getElementById('token').value = localStorage.getItem('tokenS');
 document.getElementById('text').value = localStorage.getItem('messageS');
-document.getElementById('attachments').value = localStorage.getItem('attachmentsS');
 document.getElementById('key').value = localStorage.getItem('clientKeyS');
 document.getElementById('interval').value = localStorage.getItem('intervalS')
 document.getElementById('groups').value = localStorage.getItem('groupsS')
