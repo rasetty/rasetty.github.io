@@ -1,0 +1,26 @@
+body, html{
+	margin: 0;
+	padding: 0;
+}
+#content{
+	display: grid;
+	grid-template-columns: 0.5fr 0.5fr;
+	grid-template-rows: auto 0.5fr;
+	grid-template-areas:
+	'. .'
+	'orig del';
+	grid-column-gap: 1%;
+	margin: 1%;
+}
+textarea{
+	resize: vertical;
+}
+#orig{
+	grid-area: 'orig';
+}
+#del{
+	grid-area: 'del';
+}
+label{
+	text-align: center;
+}
